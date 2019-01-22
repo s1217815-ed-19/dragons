@@ -1,0 +1,68 @@
+Content-Type:text/html
+
+<!DOCTYPE html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+ <script language = "JavaScript">
+ //this is the function that allows data to be displayed by calling the
+    //python file dragoninfo.py
+  function dragonInfo(form) { {
+      dragon = form.dragon.value
+      url = "dragoninfo.py?dragon="+dragon;
+      //send information and receive it back
+      var result=$.getJSON(url, function() {
+      });
+      //when the JSON is ready format it into an alert and put below the form
+      result.always(function(result) {
+        alert(JSON.stringify("Dragon Type: " + result.dragon + /n + "Diet: " +result.diet + /n + "Colour: " + result.colour +/n+ "Fire: " + result.fire + /n + "Weight: " + result.weight + /n + "Wingspan: " + result.wingspan + /n+ "Summer Region: " + result.summer + /n + "Winter Region: " + result.winter))
+        var dragon = JSON.stringify(result.dragon);
+        var diet = JSON.stringify(result.diet);
+        var weight = JSON.stringify(result.weight);
+        var fire = JSON.stringify(result.fire);
+        var colour = JSON.stringify(result.colour);
+        var summer = JSON.stringify(result.summer);
+        var winter = JSON.stringify(result.winter);
+        var wingspan = JSON.stringify(result.wingspan);
+        document.getElementById("queryinfo").innerHTML= dragon + /n + diet +/n + weight + /n + fire +/n + colour + /n + wingspan + /n + summer +/n + winter
+      });
+
+      console.log(result);
+  }
+
+
+  function dragonDanger(form) {
+  xcoord = form.xcoord.value;
+  ycoord = form.ycoord.value;
+  url = "dragondanger.py?xcoord="+xcoord+"&ycoord="+ycoord;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+    document.getElementByID("queryinfo").innerHTML = result
+  });
+  console.log(result)
+  }
+
+
+</head>
+<body>
+
+   <h2>Dragon Info</h2>
+      <table>
+      <form name="Dragon Info"  method="" action="">
+      <tr><td>Dragon:</td> <td><input type="text" name="dragon"></td></tr>
+      <tr><td></td><td><input type="button" value="Go!" onclick="dragonInfo(this.form)"></td></tr>
+      </form>
+      </table>
+
+   <h2>Dragon Danger</h2>
+      <table>
+      <form name="Dragon Danger"  method="" action="">
+      <tr><td>X Coordinate:</td> <td><input type="text" name="xcoord"></td></tr>
+      <tr><td>Y Coordinate:</td> <td><input type="text" name="ycoord"></td></tr>
+      <tr><td></td><td><input type="button" value="Go!" onclick="dragonDanger(this.form)"></td></tr>
+      </form>
+      </table>
+
+</body>
