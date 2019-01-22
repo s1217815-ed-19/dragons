@@ -6,6 +6,6 @@ NAME VARCHAR2(25),
 AREA number(2),
 TEMP_MAX NUMBER(4),
 TEMP_MIN NUMBER (4),
-PRIMARY KEY (REGION_SUMMER_ID, NAME));
+PRIMARY KEY (REGION_SUMMER_ID));
 
 grant select,update,insert,delete on region_summer to s1234874, s1676540;
