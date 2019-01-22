@@ -8,3 +8,5 @@ WEIGHT_ID NUMBER(2),
 COLOUR_ID NUMBER(2),
 FIRE VARCHAR2(4),
 PRIMARY KEY (TYPE_ID));
+
+grant select,update,insert,delete on region_summer to s1234874, s1676540;

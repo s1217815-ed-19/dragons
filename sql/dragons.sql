@@ -7,3 +7,5 @@ REGION_SUMMER_ID NUMBER(2),
 REGION_WINTER_ID NUMBER(2),
 TYPE_ID NUMBER(2),
 PRIMARY KEY (DRAGON_ID,NAME));
+
+grant select,update,insert,delete on region_summer to s1234874, s1676540;
