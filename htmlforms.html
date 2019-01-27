@@ -2,6 +2,7 @@ Content-Type:text/html
 
 <!DOCTYPE html>
 <head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
  <script language = "JavaScript">
@@ -44,6 +45,84 @@ Content-Type:text/html
   console.log(result)
   }
 
+function function1(form) {
+  settlement = form.settlement.value;
+  url = "SettlementDanger1.py?settlement="+settlement;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+}
+
+function function2(form) {
+foodSource = form.foodSource.value;
+url = "foodsource1.py?foodSource="+foodSource;
+var result = $.getJSON(url, function() {
+});
+result.always(function(result){
+  alert(JSON.stringify(result));
+});
+console.log(result)
+}
+
+function function3(form) {
+  settlement = form.settlement.value;
+  url = "foodsettlement.py?settlement="+settlement;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+}
+
+function function4(form) {
+  settlement = form.settlement.value;
+  url = "migrationsettlement.py?settlement="+settlement;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+}
+
+function function5(form) {
+  habitat1 = form.habitat1.value;
+  habitat2 = form.habitat2.value;
+  url = "habitatdistance.py?habitat1="+habitat1+"&habitat2="+habitat2;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+}
+
+function function6(form) {
+  dragonroute = form.dragonroute.value;
+  url = "migrationRouteIntersect.py?dragonroute="+dragonroute;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+}
+
+function function7(form) {
+  habitat3 = form.habitat3.value;
+  dragonroute = form.dragonroute.value;
+  url = "routeHabitatIntersect.py?habitat3="+habitat3+"&dragonroute="+dragonroute;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+}
 
 </head>
 <body>
@@ -64,5 +143,215 @@ Content-Type:text/html
       <tr><td></td><td><input type="button" value="Go!" onclick="dragonDanger(this.form)"></td></tr>
       </form>
       </table>
+
+  <h2>Settlement in Dragon Habitat?</h2>
+  <p>Select a Settlement</p>
+  <form name "settlementDanger1" method="" action="">
+  <select name = "settlement">
+  <option value="Budapest">Budapest</option>
+  <option value="Oslo">Oslo</option>
+  <option value="Wellington">Wellington</option>
+  <option value="Beijing">Beijing</option>
+  <option value="Cardiff">Cardiff</option>
+  <option value="Stockholm">Stockholm</option>
+  <option value="Lima">Lima</option>
+  <option value="Bucharest">Bucharest</option>
+  <option value="Edinburgh">Edinburgh</option>
+  <option value="Kiev">Kiev</option>
+  <option value="London">London</option>
+  <option value="Jakarta">Jakarta</option>
+  <option value="Madrid">Madrid</option>
+  <option value="Bangkok">Bangkok</option>
+  <option value="Canberra">Canberra</option>
+  <option value="Mexico City">Mexico City</option>
+  <option value="Mombassa">Mombassa</option>
+  <option value="Malaga">Malaga</option>
+  <option value="Honolulu">Honolulu</option>
+  <option value="Austin">Austin</option>
+  </select>
+  <input type ="button" value = "Go" onclick ="function1(this.form)">
+  </form>
+
+  <h2>Is a Food Source in a Dragon Habitat?</h2>
+  <p>Select a Food Source</p>
+  <form name "foodSource" method="" action="">
+  <select name = "foodsource">
+  <option value="Sheep">Sheep</option>
+  <option value="Cows">Cows</option>
+  <option value="People">People</option>
+  <option value="Dragons">Dragons</option>
+  <option value="Fish">Fish</option>
+  <option value="Trees">Trees</option>
+  </select>
+  <input type ="button" value = "Go" onclick ="function2(this.form)">
+  </form>
+
+  <h2>Settlement Near Food Source?</h2>
+  <p>Select a Settlement</p>
+  <form name "SettlementDanger2" method="" action="">
+  <select name = "settlement">
+  <option value="Budapest">Budapest</option>
+  <option value="Oslo">Oslo</option>
+  <option value="Wellington">Wellington</option>
+  <option value="Beijing">Beijing</option>
+  <option value="Cardiff">Cardiff</option>
+  <option value="Stockholm">Stockholm</option>
+  <option value="Lima">Lima</option>
+  <option value="Bucharest">Bucharest</option>
+  <option value="Edinburgh">Edinburgh</option>
+  <option value="Kiev">Kiev</option>
+  <option value="London">London</option>
+  <option value="Jakarta">Jakarta</option>
+  <option value="Madrid">Madrid</option>
+  <option value="Bangkok">Bangkok</option>
+  <option value="Canberra">Canberra</option>
+  <option value="Mexico City">Mexico City</option>
+  <option value="Mombassa">Mombassa</option>
+  <option value="Malaga">Malaga</option>
+  <option value="Honolulu">Honolulu</option>
+  <option value="Austin">Austin</option>
+  </select>
+  <input type ="button" value = "Go" onclick ="function3(this.form)">
+  </form>
+
+  <h2>Settlement Near Migration Route?</h2>
+  <p>Select a Settlement</p>
+  <form name "SettlementDanger3" method="" action="">
+  <select name = "settlement">
+  <option value="Budapest">Budapest</option>
+  <option value="Oslo">Oslo</option>
+  <option value="Wellington">Wellington</option>
+  <option value="Beijing">Beijing</option>
+  <option value="Cardiff">Cardiff</option>
+  <option value="Stockholm">Stockholm</option>
+  <option value="Lima">Lima</option>
+  <option value="Bucharest">Bucharest</option>
+  <option value="Edinburgh">Edinburgh</option>
+  <option value="Kiev">Kiev</option>
+  <option value="London">London</option>
+  <option value="Jakarta">Jakarta</option>
+  <option value="Madrid">Madrid</option>
+  <option value="Bangkok">Bangkok</option>
+  <option value="Canberra">Canberra</option>
+  <option value="Mexico City">Mexico City</option>
+  <option value="Mombassa">Mombassa</option>
+  <option value="Malaga">Malaga</option>
+  <option value="Honolulu">Honolulu</option>
+  <option value="Austin">Austin</option>
+  </select>
+  <input type ="button" value = "Go" onclick ="function4(this.form)">
+  </form>
+
+  <h2>How far is a Dragon Habitat from Another?</h2>
+  <p>Select Two Habitats</p>
+  <form name "habitatDistances" method="" action="">
+  <select name = "habitat1">
+  <option value="Hungary">Hungary</option>
+  <option value="Norway">Norway</option>
+  <option value="New Zealand">New Zealand</option>
+  <option value="China">China</option>
+  <option value="Wales">Wales</option>
+  <option value="Sweden">Sweden</option>
+  <option value="Peru">Peru</option>
+  <option value="Romania">Romania</option>
+  <option value="Scotland">Scotland</option>
+  <option value="Ukraine">Ukraine</option>
+  <option value="England">England</option>
+  <option value="Indonesia">Indonesia</option>
+  <option value="Spain">Spain</option>
+  <option value="Thailand">Thailand</option>
+  <option value="Australia">Australia</option>
+  <option value="Mexico">Mexico</option>
+  <option value="Kenya">Kenya</option>
+  <option value="SouthSpain">SouthSpain</option>
+  <option value="Hawaii">Hawaii</option>
+  <option value="Texas">Texas</option>
+  </select>
+  <select name = "habitat2">
+  <option value="Hungary">Hungary</option>
+  <option value="Norway">Norway</option>
+  <option value="New Zealand">New Zealand</option>
+  <option value="China">China</option>
+  <option value="Wales">Wales</option>
+  <option value="Sweden">Sweden</option>
+  <option value="Peru">Peru</option>
+  <option value="Romania">Romania</option>
+  <option value="Scotland">Scotland</option>
+  <option value="Ukraine">Ukraine</option>
+  <option value="England">England</option>
+  <option value="Indonesia">Indonesia</option>
+  <option value="Spain">Spain</option>
+  <option value="Thailand">Thailand</option>
+  <option value="Australia">Australia</option>
+  <option value="Mexico">Mexico</option>
+  <option value="Kenya">Kenya</option>
+  <option value="SouthSpain">SouthSpain</option>
+  <option value="Hawaii">Hawaii</option>
+  <option value="Texas">Texas</option>
+  </select>
+  <input type ="button" value = "Go" onclick ="function5(this.form)">
+  </form>
+
+  <h2>Migration Route Intersection?</h2>
+  <p>Select a Dragon</p>
+  <form name "dragonRouteIntersect" method="" action="">
+  <select name = "dragonroute">
+  <option value="Hungarian_Horntail">Hungarian_Horntail</option>
+  <option value="Norwegian_Ridgeback">Norwegian_Ridgeback</option>
+  <option value="Antipodean_Opaleye">Antipodean_Opaleye</option>
+  <option value="Chinese_Fireball">Chinese_Fireball</option>
+  <option value="Common_Welsh_Green">Common_Welsh_Green</option>
+  <option value="Swedish_Short-Snout">Swedish_Short-Snout</option>
+  <option value="Peruvian_Vipertooh">Peruvian_Vipertooth</option>
+  <option value="Romanian_Longhorn">Romanian_Longhorn</option>
+  <option value="Hebridian_Black">Hebridian_Black</option>
+  <option value="Ukrainian_Ironbelly">Ukrainian_Ironbelly</option>
+  <option value="Catalonian_Fireball">Catalonian_Fireball</option>
+  <option value="Wyvern">Wyvern</option>
+  </select>
+  <input type ="button" value = "Go" onclick ="function6(this.form)">
+  </form>
+
+  <h2>Migration Route and Habitat Intersection?</h2>
+  <p>Select a Dragon Route</p>
+  <form name "routeHabitatIntersect" method="" action="">
+  <select name = "dragonroute">
+  <option value="Hungarian_Horntail">Hungarian_Horntail</option>
+  <option value="Norwegian_Ridgeback">Norwegian_Ridgeback</option>
+  <option value="Antipodean_Opaleye">Antipodean_Opaleye</option>
+  <option value="Chinese_Fireball">Chinese_Fireball</option>
+  <option value="Common_Welsh_Green">Common_Welsh_Green</option>
+  <option value="Swedish_Short-Snout">Swedish_Short-Snout</option>
+  <option value="Peruvian_Vipertooh">Peruvian_Vipertooth</option>
+  <option value="Romanian_Longhorn">Romanian_Longhorn</option>
+  <option value="Hebridian_Black">Hebridian_Black</option>
+  <option value="Ukrainian_Ironbelly">Ukrainian_Ironbelly</option>
+  <option value="Catalonian_Fireball">Catalonian_Fireball</option>
+  <option value="Wyvern">Wyvern</option>
+  </select>
+  <select name = "habitat3">
+  <option value="Hungary">Hungary</option>
+  <option value="Norway">Norway</option>
+  <option value="New Zealand">New Zealand</option>
+  <option value="China">China</option>
+  <option value="Wales">Wales</option>
+  <option value="Sweden">Sweden</option>
+  <option value="Peru">Peru</option>
+  <option value="Romania">Romania</option>
+  <option value="Scotland">Scotland</option>
+  <option value="Ukraine">Ukraine</option>
+  <option value="England">England</option>
+  <option value="Indonesia">Indonesia</option>
+  <option value="Spain">Spain</option>
+  <option value="Thailand">Thailand</option>
+  <option value="Australia">Australia</option>
+  <option value="Mexico">Mexico</option>
+  <option value="Kenya">Kenya</option>
+  <option value="SouthSpain">SouthSpain</option>
+  <option value="Hawaii">Hawaii</option>
+  <option value="Texas">Texas</option>
+  </select>
+  <input type ="button" value = "Go" onclick ="function7(this.form)">
+  </form>
 
 </body>

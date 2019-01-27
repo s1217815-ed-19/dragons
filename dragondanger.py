@@ -12,7 +12,6 @@ def dragonDanger(xcoord,ycoord):
    
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
-    #Relational join between Fields and Crops while bringing them in
     query = "SELECT * FROM DRAGONS WHERE " +xcoord+ " BETWEEN MIN(X) AND MAX(X) AND " +ycoord+ " BETWEEN MIN(Y) AND MAX(Y)"
     c.execute(query)
     html = {}
@@ -44,6 +43,6 @@ if __name__ == '__main__':
          xcoord=form['xcoord'].value
      if "ycoord" in form:
          ycoord=form['ycoord'].value
-     testvar = dragonDanger(field)
+     testvar = dragonDanger(xcoord, ycoord)
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)
