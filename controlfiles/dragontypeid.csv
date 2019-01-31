@@ -1,0 +1,13 @@
+Type_ID,Diet_ID,Wingspan_Id,Weight_ID,Colour_Idÿ,Fire,Notes
+1,1,4,3,3,Yes,NA
+2,1,4,3,2,Yes,NA
+3,1,3,2,7,Yes,NA
+4,3,1,2,5,Yes,NA
+5,2,2,1,1,Yes,NA
+6,3,2,2,2,Yes,NA
+7,1,1,1,4,Yes,NA
+8,2,3,3,1,No,NA
+9,3,3,2,3,Yes,NA
+10,1,4,4,6,No,NA
+11,2,1,1,2,Yes,NA
+12,3,1,1,,Yes,NA
