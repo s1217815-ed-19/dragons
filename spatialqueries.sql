@@ -15,9 +15,7 @@ def routeHabitatIntersect(route, habitat):
     c.execute(query)
     html = {}
     for row in c:
-        html["habitat"] = row[]
-        html["route"] = row[]
-        html["intersect"] = row[]
+        html["intersect"] = row[0]
 
     conn.close()
     return html
