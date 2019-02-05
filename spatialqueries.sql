@@ -1,36 +1,30 @@
-#!/usr/bin/env python3
-import cgi
-import cgitb
-import cx_Oracle
-import json
-cgitb.enable()
+SELECT SDO_GEOM.SDO_INTERSECTION(VARROUTE,
+(SELECT ROUTE FROM S1217815.MIGRATION),.005) FROM S1217815.MIGRATION;
 
-def routeHabitatIntersect(route, habitat):
-    with open("/web/s1676540/webmappwd", 'r') as pwf:
-        pwd = pwf.read().strip()
-   
-    conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
-    c = conn.cursor()
-    query = "" #do a habitat and migration route intersect
-    c.execute(query)
-    html = {}
-    for row in c:
-        html["intersect"] = row[0]
+SELECT A.MIGRATION_ID, A.NAME
+FROM S1217815.MIGRATION A
+WHERE SDO_RELATE(A.ROUTE, A.ROUTE, MASK = OVERLAPBDYDISJOINT) = 'TRUE';
 
-    conn.close()
-    return html
+SELECT SDO_GEOM.SDO_INTERSECTION(ROUTE,HABITAT,.005) FROM S1217815.MIGRATION, S1217815.REGION;
 
-if __name__ == '__main__':
-    #allows retrieval of the values input in the html form
-     form = cgi.FieldStorage()
-     print("Content-Type: application/json")
-     print("\n")
+SELECT A.MIGRATION_ID, A.NAME, B.REGION_ID, B.NAME
+FROM S1217815.MIGRATION A, S1217815.REGION B
+WHERE SDO_RELATE(A.ROUTE, B.LOCATION, MASK = OVERLAPBDYDISJOINT) = 'TRUE';
 
-     #if the form is filled out, get the number, call the function, turn result into a JSON and send back
-     if "dragonroute" in form:
-         route =form['dragonroute'].value
-     if "habitat3" in form:
-         habitat = form.['habitat3'].value
-     testvar = routehabitatIntersect(route, habitat)
-     jsonfield = json.dumps(testvar, indent=1)
-     print(jsonfield)
+SELECT SDO_GEOM.SDO_DISTANCE(SETTLEMENT, FOODSOURCE, .005) FROM S1217815.SETTLEMENTS, S1217815.FOODSOURCE;
+
+SELECT SDO_GEOM.SDO_DISTANCE(SETTLEMENT, ROUTE, .005) FROM S1217815.SETTLEMENTS, S1217815.MIGRATION;
+
+SELECT SDO_GEOM.SDO_DISTANCE(HABITAT1, HABITAT2, .005) FROM S1217815.REGION;
+
+SELECT A.REGION_ID, A.NAME, B.SETTLEMENT_ID, B.NAME
+FROM S1217815.REGION A, S1217815.SETTLEMENTS B
+WHERE SDO_CONTAINS(A.AREA, B.LOCATION) = 'TRUE';
+
+SELECT A.REGION_ID, A.NAME
+FROM S1217815.REGION A
+WHERE SDO_CONTAINS(A.AREA, VARLOC) = 'TRUE';
+
+SELECT A.REGION_ID, A.NAME, B.FOOD_SOURCE_ID, B.NAME
+FROM S1217815.REGION A, S1217815.FOOD_SOURCE B
+WHERE SDO_CONTAINS(A.AREA, B.LOCATION) = 'TRUE';
