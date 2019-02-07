@@ -1,0 +1,21 @@
+Region_ID,Name,Season,Temp_Min,Temp_Max
+1,Hungary,Summer,30,18
+2,Norway,Summer,20,10
+3,New Zealand,Summer,30,17
+4,China,Summer,35,20
+5,Wales,Summer,22,17
+6,Sweden,Summer,20,12
+7,Peru,Summer,34,17
+8,Romania,Summer,30,12
+9,Scotland,Summer,25,16
+10,Ukraine,Summer,29,14
+11,Spain,Summer,40,18
+12,England,Summer,26,18
+13,Indonesia,Winter,40,30
+14,Thailand,Winter,42,30
+15,Australia,Winter,45,20
+16,Mexico,Winter,37,22
+17,Kenya,Winter,42,20
+18,Hawaii,Winter,30,20
+19,Spain,Winter,15,0
+20,Texas,Winter,15,0
