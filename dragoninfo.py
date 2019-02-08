@@ -12,7 +12,7 @@ def info_dragon(dragon):
    
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
-    #Relational join between Fields and Crops while bringing them in
+    #get info about dragons
     query = "SELECT * FROM DRAGONS WHERE DRAGONS.SUMMER = SUMMERREGION.ID AND DRAGONS.WINTER = WINTERREGION.ID AND DRAGON.TYPE = DRAGONTYPE.ID AND DRAGON.ID=" + dragon 
     c.execute(query)
     html = {}
