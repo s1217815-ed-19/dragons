@@ -6,6 +6,42 @@ Content-Type:text/html
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
  <script language = "JavaScript">
+
+  function getCentroids() {
+    url="centroids.py"
+    var centroids = $.getJSON(url, function() {
+    });
+}
+    result.always(function(result) {
+      var 1 = JSON.stringify(result.1)
+      var 2 = JSON.stringify(result.2)
+      var 3 = JSON.stringify(result.3)
+      var 4 = JSON.stringify(result.4)
+      var 5 = JSON.stringify(result.5)
+      var 6 = JSON.stringify(result.6)
+      var 7 = JSON.stringify(result.7)
+      var 8 = JSON.stringify(result.8)
+      var 9 = JSON.stringify(result.9)
+      var 10 = JSON.stringify(result.10)
+      var 11 = JSON.stringify(result.11)
+      var 12 = JSON.stringify(result.12)
+      var 13 = JSON.stringify(result.13)
+      var 14 = JSON.stringify(result.14)
+      var 15 = JSON.stringify(result.15)
+      var 16 = JSON.stringify(result.16)
+      var 17 = JSON.stringify(result.17)
+      var 18 = JSON.stringify(result.18)
+      var 19 = JSON.stringify(result.19)
+      var 20 = JSON.stringify(result.20)
+    });
+    result.always(function(result){
+      for(var i = 0; i < result.length; i++) {
+      var obj = result[i];
+      console.log(obj)
+    });
+  }
+
+
  //this is the function that allows data to be displayed by calling the
     //python file dragoninfo.py
   function dragonInfo(form) { {
@@ -123,6 +159,16 @@ function function7(form) {
   });
   console.log(result)
 }
+
+function function8(form) {
+  newID = form.newID.value;
+  newX = form.newX.value;
+  newY = form.newY.value;
+  url = "new2.py?newID="+newID+"&newX="+newX+"&newY"+newY;
+  var result = $.get(url, function() {
+       console.log(url)
+     });
+};
 
 </head>
 <body>
@@ -354,4 +400,13 @@ function function7(form) {
   <input type ="button" value = "Go" onclick ="function7(this.form)">
   </form>
 
+  <h2>Add Dragon Sighting</h2>
+      <table>
+        <form name="AddStuff" method="" action="">
+        <tr><td>New ID:</td> <td><input type="text" name="newID"></td></tr>
+        <tr><td>X Coordinate:</td> <td><input type="text" name="newX"></td></tr>
+        <tr><td>Y Coordinate:</td> <td><input type="text" name="newY"></td></tr>
+        <tr><td></td><td><input type="button" value="Add Dragon!" onclick="function8(this.form)"></td></tr>
+        </form>
+        </table>
 </body>
