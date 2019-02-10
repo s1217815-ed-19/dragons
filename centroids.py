@@ -5,19 +5,24 @@ import cx_Oracle
 import json
 cgitb.enable()
 
-def add_dragon(newX, newY, newID):
-    '''allow user to add a dragon siting'''
+def getCentroids():
+    '''get all the centroids for the regions'''
     with open("/web/s1676540/webmappwd", 'r') as pwf:
         pwd = pwf.read().strip()
    
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
-    query = "INSERT INTO 1676540.NEWDRAGON VALUES (" + str(newID) + ", SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE(" +newX + "," + newY +", NULL), NULL, NULL))"
-    c.execute(query)
-   
-    conn.close()
-    return html
 
+    query = "SELECT A.REGION_ID, SDO_GEOM.SDO_CENTROID(A.SHAPE,0.005).SDO_POINT.X,SDO_GEOM.SDO_CENTROID(A.SHAPE,0.005).SDO_POINT.Y FROM S1234874.REGION A;"
+
+    c.execute(query)
+    html = {}
+    for row in c:
+        html[row[0]] = [row[1], row[2]]
+
+    conn.close()
+    print(html)
+    return html
 
 if __name__ == '__main__':
     #allows retrieval of the values input in the html form
@@ -25,14 +30,9 @@ if __name__ == '__main__':
      print("Content-Type: application/json")
      print("\n")
 
-     #if the form is filled out, get the numbers and call the function to add
-     if "newX" in form:
-         newX=form['newX'].value
-     if "newY" in form:
-         newY=form['newY'].value
-     if "newID"in form:
-         newID =form['newID'].value
-     testvar = add_dragon(newX, newY, newID)
+     testvar = getCentroids()
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)
+
+    
 
