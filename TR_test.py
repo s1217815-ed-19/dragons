@@ -39,6 +39,38 @@ class StartPoint(Point):
                         },
                 'geometry':self.coorToGeoJson()}
 
+class RegionCentroids(Point):
+    def __init__(self, d_id, d_name, r_name,season, diet, wingspan,class_id, colour, fire, notes, r_x, r_y):
+        self.id = d_id
+        self.d_name = d_name
+        self.r_name = r_name
+        self.season=season
+        self.diet = diet
+        self.wingspan = wingspan
+        self.class_id =class_id
+        self.colour=colour
+        self.fire= fire
+        self.notes = notes
+        self.x = str(r_x.values[0])
+        self.y = str(r_y.values[0])
+        
+    def toGeoJson(self):
+        return {'type':'Feature',
+                'properties': {
+                    'dragon_id' : self.id,
+                    'Dragon Name' : self.d_name.values[0],
+                    'Region Name' : self.r_name.values[0],
+                    'Season' : self.season.values[0],
+                    'Diet' : self.diet.values[0],
+                    'Wingspan' : str(self.wingspan.values[0]),
+                    'Weight Class' : self.class_id.values[0],
+                    'Colour' : self.colour.values[0],
+                    'Fire' : self.fire.values[0],
+                    'Notes' : self.notes.values[0]
+                    },
+                   'geometry':self.coorToGeoJson()}
+        
+
 class PointSeqs(list):
     def __init__(self,ar_x=[],ar_y=[]):
         c_point = len(ar_x)
@@ -66,7 +98,7 @@ class RegionZonePolygon(PointSeqs):
     def toGeoJson(self):
         return {'type' : 'Feature',
                 'properties' : {
-                        'zone_id' : self.id,'name' : self.name.values[0],'season' : self.season.values[0],'temp_max' : str(self.temp_max.values[0]),'temp_min' : str(self.temp_min.values[0])
+                        'zone_id' : self.id,'Name' : self.name.values[0],'Season' : self.season.values[0],'Maximum Temperature' : str(self.temp_max.values[0]),'Minimum Temperature' : str(self.temp_min.values[0])
                         },
                 'geometry':{
                         'type' : 'Polygon',
@@ -116,6 +148,42 @@ def getStartPtsJson(cs):
         points_json_list.append(stpt.toGeoJson())
 
     return json.dumps(points_json_list)
+def getRegionCentroids(cs):
+    list_rec = []
+    for row in cs:
+        list_rec.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11]])
+    df = pd.DataFrame(list_rec, columns = ['dragon_id','d_name','r_name','season','diet','wingspan','weight','colour','fire','notes','x','y'])
+    xs_list=[]
+    ys_list=[]
+    did_list=[]
+    d_list=[]
+    r_list=[]
+    season_list=[]
+    diet_list=[]
+    wingspan_list=[]
+    weight_list=[]
+    colour_list=[]
+    fire_list=[]
+    notes_list=[]
+    for dragon_id, pt in df.groupby('dragon_id'):
+        did_list.append(dragon_id)
+        xs_list.append(pt.x)
+        ys_list.append(pt.y)
+        d_list.append(pt.d_name)
+        r_list.append(pt.r_name)
+        season_list.append(pt.season)
+        diet_list.append(pt.diet)
+        wingspan_list.append(pt.wingspan)
+        weight_list.append(pt.weight)
+        colour_list.append(pt.colour)
+        fire_list.append(pt.fire)
+        notes_list.append(pt.notes)
+    centroid_json_list=[]
+    for i in range(len(did_list)):
+        centroid_json_list.append(RegionCentroids(did_list[i],d_list[i],r_list[i],season_list[i], diet_list[i],wingspan_list[i],weight_list[i],colour_list[i],fire_list[i],notes_list[i],xs_list[i],ys_list[i]).toGeoJson())
+    return json.dumps(centroid_json_list)
+
+
 
 connection = cx_Oracle.connect("s1217815/Jaya435@geosgen")
 #typeObj = connection.gettype("SDO_GEOMETRY")
@@ -125,15 +193,17 @@ c3 = connection.cursor()
 c2.execute("select c.settlement_id, t.X, t.Y from s1234874.settlements c, TABLE(SDO_UTIL.GETVERTICES(c.location)) t")
 c.execute("select c.region_id, c.name, c.season, c.temp_max, c.temp_min, t.x, t.y from s1234874.region c, table(sdo_util.getvertices(c.shape)) t")
 c3.execute("select c.migration_id, t.X, t.Y from s1234874.migration c, TABLE(SDO_UTIL.GETVERTICES(c.route)) t")
+c4 = connection.cursor()
+c4.execute("SELECT A.DRAGON_ID,A.NAME DRAGON, B.NAME REGION,B.SEASON, C.DIET, D.WINGSPAN, E.CLASS, F.COLOUR, G.FIRE, G.NOTES, SDO_GEOM.SDO_CENTROID(B.SHAPE,0.005).SDO_POINT.X X,SDO_GEOM.SDO_CENTROID(B.SHAPE,0.005).SDO_POINT.Y Y FROM S1217815.DRAGONS A, S1234874.REGION B, S1217815.DIET C, S1217815.WINGSPAN D, S1217815.WEIGHT_CLASS E, S1217815.COLOUR F, S1217815.DRAGON_TYPE G WHERE A.TYPE_ID = G.TYPE_ID AND b.season = 'Summer' and G.DIET_ID = C.DIET_ID AND D.WINGSPAN_ID = G.WINGSPAN_ID AND E.WEIGHT_ID = G.WEIGHT_ID AND F.COLOUR_ID = G.COLOUR_ID")
 
+jsonCentroids = getRegionCentroids(c4)
+print (jsonCentroids)
 jsonPoly = getRegionZonePolyJson(c)
 
-print (jsonPoly)
+#print (jsonPoly)
 jsonPtsMigration = getStartPtsJson(c3)
 #print (jsonPtsMigration)
 jsonPtsSettlements = getStartPtsJson(c2)
 #print (jsonPtsSettlements)
 
-#SELECT D.DRAGON_ID, D.NAME,A.REGION_ID,A.NAME,A.SEASON, SDO_GEOM.SDO_CENTROID(A.SHAPE,0.005).SDO_POINT.X X_COORD,SDO_GEOM.SDO_CENTROID(A.SHAPE,0.005).SDO_POINT.Y Y_COORD FROM S1234874.REGION A, S1217815.DRAGONS D WHERE A.REGION_ID = D.REGION_SUMMER_ID;
-
-SELECT A._NAME DRAGON, B.NAME REGION, C.DIET, D.WINGSPAN, E.CLASS, F.COLOUR, G.FIRE, G.NOTES FROM S1217815.DRAGONS A, S1234874.REGION B, S1217815.DIET C, S1217815.WINGSPAN D, S1217815.WEIGHT_CLASS E, S1217815.COLOUR F, S1217815.DRAGON_TYPE G WHERE A.TYPE_ID = G.TYPE_ID AND B.REGION_ID = A.REGION_SUMMER_ID AND G.DIET_ID = C.DIET_ID AND D.WINGSPAN_ID = G.WINGSPAN_ID AND E.WEIGHT_ID = G.WEIGHT_ID AND F.COLOUR_ID = G.COLOUR_ID;    
+    
