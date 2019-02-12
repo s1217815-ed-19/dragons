@@ -9,4 +9,4 @@ TEMP_MAX NUMBER(4),
 TEMP_MIN NUMBER (4),
 PRIMARY KEY (REGION_ID));
 
-grant select,update,insert,delete on region to s1234874, s1676540;
+GRANT ALL PRIVILEGES ON region to s1234874, s1676540;

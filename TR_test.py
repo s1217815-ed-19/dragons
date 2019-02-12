@@ -51,7 +51,7 @@ class PointSeqs(list):
             coor_list.append(pt.getLatLon())
         return coor_list
 
-class ZonePolygon(PointSeqs):
+class RegionZonePolygon(PointSeqs):
     
     def __init__(self,zone_id,name,season,temp_max,temp_min,ar_x=[],ar_y=[]):
         self.id = zone_id
@@ -73,7 +73,7 @@ class ZonePolygon(PointSeqs):
                         'coordinates' : [self.coorArrToGeoJson()]
                         }}
 
-def getZonePolyJson(cs):
+def getRegionZonePolyJson(cs):
     '''    print (df.groupby('zone_id'))
     generate GeoJson for zones
     '''
@@ -101,7 +101,7 @@ def getZonePolyJson(cs):
     zones_json_list = []
 
     for i in range(len(zoneid_list)):
-        zones_json_list.append(ZonePolygon(zoneid_list[i],name_list[i],season_list[i],temp_max_list[i],temp_min_list[i],np.array(xs_list[i]),np.array(ys_list[i])).toGeoJson())
+        zones_json_list.append(RegionZonePolygon(zoneid_list[i],name_list[i],season_list[i],temp_max_list[i],temp_min_list[i],np.array(xs_list[i]),np.array(ys_list[i])).toGeoJson())
 
     return json.dumps(zones_json_list)
 
@@ -126,10 +126,12 @@ c2.execute("select c.settlement_id, t.X, t.Y from s1234874.settlements c, TABLE(
 c.execute("select c.region_id, c.name, c.season, c.temp_max, c.temp_min, t.x, t.y from s1234874.region c, table(sdo_util.getvertices(c.shape)) t")
 c3.execute("select c.migration_id, t.X, t.Y from s1234874.migration c, TABLE(SDO_UTIL.GETVERTICES(c.route)) t")
 
-jsonPoly = getZonePolyJson(c)
+jsonPoly = getRegionZonePolyJson(c)
 
 print (jsonPoly)
 jsonPtsMigration = getStartPtsJson(c3)
 #print (jsonPtsMigration)
 jsonPtsSettlements = getStartPtsJson(c2)
 #print (jsonPtsSettlements)
+
+#SELECT D.DRAGON_ID, D.NAME,A.REGION_ID,A.NAME,A.SEASON, SDO_GEOM.SDO_CENTROID(A.SHAPE,0.005).SDO_POINT.X X_COORD,SDO_GEOM.SDO_CENTROID(A.SHAPE,0.005).SDO_POINT.Y Y_COORD FROM S1234874.REGION A, S1217815.DRAGONS D WHERE A.REGION_ID = D.REGION_SUMMER_ID;
