@@ -1,5 +1,3 @@
-#import cgi
-#import cgitb
 import pandas as pd
 import pyproj
 import cx_Oracle
@@ -55,8 +53,12 @@ class PointSeqs(list):
 
 class ZonePolygon(PointSeqs):
     
-    def __init__(self,zone_id,ar_x=[],ar_y=[]):
+    def __init__(self,zone_id,name,season,temp_max,temp_min,ar_x=[],ar_y=[]):
         self.id = zone_id
+        self.name = name
+        self.season = season
+        self.temp_max = temp_max
+        self.temp_min = temp_min
         c_point = len(ar_x)
         for i in range(c_point):
             self.append(Point(ar_x[i],ar_y[i]))
@@ -64,7 +66,7 @@ class ZonePolygon(PointSeqs):
     def toGeoJson(self):
         return {'type' : 'Feature',
                 'properties' : {
-                        'zone_id' : self.id
+                        'zone_id' : self.id,'name' : self.name.values[0],'season' : self.season.values[0],'temp_max' : str(self.temp_max.values[0]),'temp_min' : str(self.temp_min.values[0])
                         },
                 'geometry':{
                         'type' : 'Polygon',
@@ -72,25 +74,34 @@ class ZonePolygon(PointSeqs):
                         }}
 
 def getZonePolyJson(cs):
-    '''
+    '''    print (df.groupby('zone_id'))
     generate GeoJson for zones
     '''
     list_rec = []
     for row in cs:
-        list_rec.append([row[0],row[1],row[2]])
+        list_rec.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6]])
         
-    df = pd.DataFrame(list_rec, columns = ['zone_id','x','y'])
+    df = pd.DataFrame(list_rec, columns = ['zone_id','name','season','temp_max','temp_min','x','y'])
     xs_list = []
     ys_list = []
+    name_list = []
+    season_list = []
+    temp_max_list=[]
+    temp_min_list=[]
     zoneid_list = []
     for zone_id, pt in df.groupby('zone_id'):
         zoneid_list.append(zone_id)
         xs_list.append(pt.x)
-        ys_list.append(pt.y)
-        
+        ys_list.append(pt.y) 
+        name_list.append(pt.name)
+        season_list.append(pt.season)
+        temp_max_list.append(pt.temp_max)
+        temp_min_list.append(pt.temp_min)
+    #print (temp_min_list)
     zones_json_list = []
+
     for i in range(len(zoneid_list)):
-        zones_json_list.append(ZonePolygon(zoneid_list[i],np.array(xs_list[i]),np.array(ys_list[i])).toGeoJson())
+        zones_json_list.append(ZonePolygon(zoneid_list[i],name_list[i],season_list[i],temp_max_list[i],temp_min_list[i],np.array(xs_list[i]),np.array(ys_list[i])).toGeoJson())
 
     return json.dumps(zones_json_list)
 
@@ -109,11 +120,16 @@ def getStartPtsJson(cs):
 connection = cx_Oracle.connect("s1217815/Jaya435@geosgen")
 #typeObj = connection.gettype("SDO_GEOMETRY")
 c= connection.cursor()
-c2 = connection.cursor()
-c2.execute("select c.region_id, t.X, t.Y from s1234874.region c, TABLE(SDO_UTIL.GETVERTICES(c.shape)) t")
-c.execute("select c.region_id, t.x, t.y from s1234874.region c, table(sdo_util.getvertices(c.shape)) t")
+c2=connection.cursor()
+c3 = connection.cursor()
+c2.execute("select c.settlement_id, t.X, t.Y from s1234874.settlements c, TABLE(SDO_UTIL.GETVERTICES(c.location)) t")
+c.execute("select c.region_id, c.name, c.season, c.temp_max, c.temp_min, t.x, t.y from s1234874.region c, table(sdo_util.getvertices(c.shape)) t")
+c3.execute("select c.migration_id, t.X, t.Y from s1234874.migration c, TABLE(SDO_UTIL.GETVERTICES(c.route)) t")
 
 jsonPoly = getZonePolyJson(c)
+
 print (jsonPoly)
-jsonPts = getStartPtsJson(c2)
-print (jsonPts)
+jsonPtsMigration = getStartPtsJson(c3)
+#print (jsonPtsMigration)
+jsonPtsSettlements = getStartPtsJson(c2)
+#print (jsonPtsSettlements)
