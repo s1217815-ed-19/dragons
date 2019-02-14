@@ -23,11 +23,14 @@ AND B.NAME ="+settlement
 
     c.execute(query)
     html = {}
+    html["settlement"] = settlement
+    habitat = []
     for row in c:
-        #create a dictionary to store the information
-        html["settlement"] = row[1] #settlement name
-        html["habitat"] = row[3] #habitat name
-        #html[] = row[] #type of dragon
+        habitat = habitat.append(row[3])
+        
+    #create a dictionary to store the information
+    html["habitat"] = habitat #habitat name
+       
     conn.close()
     return html
 

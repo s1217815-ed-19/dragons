@@ -22,8 +22,11 @@ AND SDO_RELATE(A.ROUTE, B.ROUTE, 'MASK = TOUCH') = 'TRUE';"
     c.execute(query)
     html = {}
     html["route"] = route
+    intersectingRoutes = []
     for row in c:
-        html["intersectingRoutes"] = row[1]
+        intersectingRoutes = intersectingRoutes.append(row[1])
+        
+    html["intersectingRoutes"] = intersectingRoutes
 
     conn.close()
     return html

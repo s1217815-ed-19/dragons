@@ -19,10 +19,14 @@ WHERE A.NAME='" +settlement+"'"
     c.execute(query)
     html = {}
     html["settlement"] = settlement
+    distances = []
+    route = []
     for row in c:
+        distances = distances.append(row[2])
+        route = route.append(row[1])
         
-        html["distances"] = row[2]
-        html["route"] = row[1]
+    html["distances"] = distances
+    html["route"] = route
 
 
     conn.close()

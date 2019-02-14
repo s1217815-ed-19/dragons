@@ -22,8 +22,10 @@ AND SDO_RELATE(A.SHAPE, B.ROUTE, 'MASK = ANYINTERACT') = 'TRUE'"
     c.execute(query)
     html = {}
     html["route"] = route
+    habname = []
     for row in c:
-        html["HabitatName"] = row[0]
+        habname = habname.append(row[0])
+    html["HabitatName"] = habname
 
     conn.close()
     return html
