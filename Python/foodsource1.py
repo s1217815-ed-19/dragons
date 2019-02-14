@@ -20,8 +20,10 @@ AND B.FOOD_TYPE = (SELECT FOOD_TYPE_ID FROM S1217815.FOOD_TYPE WHERE CLASS = '" 
    
     c.execute(query)
     html = {}
+    hab = []
     for row in c:
-        html["habitat"] = row[1]
+        hab = hab.append(row[1])
+    html["habitat"] = hab
 
     conn.close()
     return html
