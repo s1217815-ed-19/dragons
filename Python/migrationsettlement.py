@@ -13,16 +13,18 @@ def migrationSettlement(settlement):
     c = conn.cursor()
 
     #how far is a settlement from a migration route
-    query = "SELECT A.NAME, B.MIGRATION_ID, SDO_GEOM.SDO_DISTANCE(A.LOCATION, B.ROUTE, .005)
-FROM S1234874.SETTLEMENTS A, S1234874.MIGRATION B
-WHERE A.NAME='" +settlement+"'"
+    query = "SELECT A.NAME, B.MIGRATION_ID, SDO_GEOM.SDO_DISTANCE(A.LOCATION, B.ROUTE, .005) FROM S1234874.SETTLEMENTS A, S1234874.MIGRATION B WHERE A.NAME='" +settlement+"'"
     c.execute(query)
     html = {}
     html["settlement"] = settlement
+    distances = []
+    route = []
     for row in c:
+        distances.append(row[2])
+        route.append(row[1])
         
-        html["distances"] = row[2]
-        html["route"] = row[1]
+    html["distances"] = distances
+    html["route"] = route
 
 
     conn.close()
@@ -37,6 +39,7 @@ if __name__ == '__main__':
       #if the form is filled out, get the number, call the function, turn result into a JSON and send back
      if "settlement" in form:
          settlement =form['settlement'].value
+     #settlement = 'Budapest'
      testvar = migrationSettlement(settlement)
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)

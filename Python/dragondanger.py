@@ -12,10 +12,7 @@ def dragonDanger(xcoord,ycoord):
    
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
-    query = "SELECT A.REGION_ID, A.NAME
-FROM S1234874.REGION A
-WHERE SDO_CONTAINS(A.SHAPE,
-SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE("+xcoord+","+ycoord+", NULL), NULL, NULL)) = 'TRUE';"
+    query = "SELECT A.REGION_ID, A.NAME FROM S1234874.REGION A WHERE SDO_CONTAINS(A.SHAPE, SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE("+xcoord+","+ycoord+", NULL), NULL, NULL)) = 'TRUE'"
     c.execute(query)
     html = {}
     for row in c:
@@ -37,6 +34,8 @@ if __name__ == '__main__':
          xcoord=form['xcoord'].value
      if "ycoord" in form:
          ycoord=form['ycoord'].value
+     #coord = '19'
+     #coord = '47'
      testvar = dragonDanger(xcoord, ycoord)
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)

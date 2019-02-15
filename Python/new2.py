@@ -2,7 +2,6 @@
 import cgi
 import cgitb
 import cx_Oracle
-import json
 cgitb.enable()
 
 def add_dragon(newX, newY, newID):
@@ -12,11 +11,10 @@ def add_dragon(newX, newY, newID):
    
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
-    query = "INSERT INTO 1676540.NEWDRAGON VALUES (" + str(newID) + ", SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE(" +newX + "," + newY +", NULL), NULL, NULL))"
+    query = "INSERT INTO S1676540.NEWDRAGON VALUES (" + str(newID) + ", SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE(" +newX + "," + newY +", NULL), NULL, NULL))"
     c.execute(query)
    
     conn.close()
-    return html
 
 
 if __name__ == '__main__':
@@ -32,7 +30,8 @@ if __name__ == '__main__':
          newY=form['newY'].value
      if "newID"in form:
          newID =form['newID'].value
+     #newX = '1'
+     #newY = '1'
+     #newID = '1'
      testvar = add_dragon(newX, newY, newID)
-     jsonfield = json.dumps(testvar, indent=1)
-     print(jsonfield)
 
