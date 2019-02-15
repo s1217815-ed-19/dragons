@@ -149,9 +149,8 @@ function function6(form) {
 }
 
 function function7(form) {
-  habitat3 = form.habitat3.value;
   dragonroute = form.dragonroute.value;
-  url = "routeHabitatIntersect.py?habitat3="+habitat3+"&dragonroute="+dragonroute;
+  url = "routeHabitatIntersect.py?dragonroute="+dragonroute;
   var result = $.getJSON(url, function() {
   });
   result.always(function(result){
@@ -348,7 +347,7 @@ function function8(form) {
   <option value="Chinese_Fireball">Chinese_Fireball</option>
   <option value="Common_Welsh_Green">Common_Welsh_Green</option>
   <option value="Swedish_Short-Snout">Swedish_Short-Snout</option>
-  <option value="Peruvian_Vipertooh">Peruvian_Vipertooth</option>
+  <option value="Peruvian_Vipertooth">Peruvian_Vipertooth</option>
   <option value="Romanian_Longhorn">Romanian_Longhorn</option>
   <option value="Hebridian_Black">Hebridian_Black</option>
   <option value="Ukrainian_Ironbelly">Ukrainian_Ironbelly</option>
@@ -374,29 +373,6 @@ function function8(form) {
   <option value="Ukrainian_Ironbelly">Ukrainian_Ironbelly</option>
   <option value="Catalonian_Fireball">Catalonian_Fireball</option>
   <option value="Wyvern">Wyvern</option>
-  </select>
-  <select name = "habitat3">
-  <option value="Hungary">Hungary</option>
-  <option value="Norway">Norway</option>
-  <option value="New Zealand">New Zealand</option>
-  <option value="China">China</option>
-  <option value="Wales">Wales</option>
-  <option value="Sweden">Sweden</option>
-  <option value="Peru">Peru</option>
-  <option value="Romania">Romania</option>
-  <option value="Scotland">Scotland</option>
-  <option value="Ukraine">Ukraine</option>
-  <option value="England">England</option>
-  <option value="Indonesia">Indonesia</option>
-  <option value="Spain">Spain</option>
-  <option value="Thailand">Thailand</option>
-  <option value="Australia">Australia</option>
-  <option value="Mexico">Mexico</option>
-  <option value="Kenya">Kenya</option>
-  <option value="SouthSpain">SouthSpain</option>
-  <option value="Hawaii">Hawaii</option>
-  <option value="Texas">Texas</option>
-  </select>
   <input type ="button" value = "Go" onclick ="function7(this.form)">
   </form>
 

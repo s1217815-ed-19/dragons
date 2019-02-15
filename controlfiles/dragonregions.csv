@@ -1,4 +1,4 @@
-Region_ID,Name,Season,Temp_MAX,Temp_MIN
+Region_ID,Name,Season,Temp_Min,Temp_Max
 1,Hungary,Summer,30,18
 2,Norway,Summer,20,10
 3,New Zealand,Summer,30,17

@@ -13,20 +13,16 @@ def info_dragon(dragon):
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
     #get info about dragons
-    query = "SELECT * FROM DRAGONS WHERE DRAGONS.SUMMER = SUMMERREGION.ID AND DRAGONS.WINTER = WINTERREGION.ID AND DRAGON.TYPE = DRAGONTYPE.ID AND DRAGON.ID=" + dragon 
+    query = "SELECT A.NAME, A.MIGRATION_ID, C.NAME FROM S1217815.DRAGONS A, S1234874.REGION C WHERE A.REGION_SUMMER_ID = C.REGION_ID AND A.NAME ='"+dragon+"'"
     c.execute(query)
     html = {}
     for row in c:
         #Create a dictionary to store information
         
         html["dragon"]= row[0]
-        html["diet"]= row[5]
-        html["colour"]= row[6]
-        html["fire"]=row[9]
-        html["weight"] = row[]
-        html["wingspan"] = row[]
-        html["summer"] = row[]
-        html["winter"] = row[]
+        html["route"]= row[1]
+        html["region"]= row[2]
+       
            
     conn.close()
     return html
@@ -41,6 +37,7 @@ if __name__ == '__main__':
      #if the form is filled out, get the number, call the function, turn result into a JSON and send back
      if "dragon" in form:
          dragon=form['dragon'].value
-         testvar =  info_dragon(dragon)
-         jsonfield = json.dumps(testvar, indent=1)
-         print(jsonfield)
+     #dragon = 'Wyvern'
+     testvar =  info_dragon(dragon)
+     jsonfield = json.dumps(testvar, indent=1)
+     print(jsonfield)
