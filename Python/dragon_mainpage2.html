@@ -1,0 +1,368 @@
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dragon Search</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+      integrity="sha512-
+      M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+      crossorigin=""/>
+    <link rel="stylesheet" href="https://www.geos.ed.ac.uk/~s1234874/Static/dragons.css"> <!-- svg map styles -->
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+      integrity="sha512-
+      lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+      crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="/Templates/dragon_forms.js"></script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <h2>Dragon Info</h2>
+
+    <table>
+      <form name="Dragon Info"  method="" action="">
+        <tr><td>Dragon:</td> <td><input type="text" name="dragon"></td></tr>
+        <tr><td></td><td><input type="button" value="Go!" onclick="dragonInfo(this.form)"></td></tr>
+      </form>
+    </table>
+
+    <h2>Dragon Danger</h2>
+    <table>
+      <form name="Dragon Danger"  method="" action="">
+        <tr><td>X Coordinate:</td> <td><input type="text" name="xcoord"></td></tr>
+        <tr><td>Y Coordinate:</td> <td><input type="text" name="ycoord"></td></tr>
+        <tr><td></td><td><input type="button" value="Go!" onclick="dragonDanger(this.form)"></td></tr>
+      </form>
+    </table>
+
+    <h2>Settlement in Dragon Habitat?</h2>
+    <p>Select a Settlement</p>
+    <form name "settlementDanger1" method="" action="">
+      <select name = "settlement">
+        <option value="Budapest">Budapest</option>
+        <option value="Oslo">Oslo</option>
+        <option value="Wellington">Wellington</option>
+        <option value="Beijing">Beijing</option>
+        <option value="Cardiff">Cardiff</option>
+        <option value="Stockholm">Stockholm</option>
+        <option value="Lima">Lima</option>
+        <option value="Bucharest">Bucharest</option>
+        <option value="Edinburgh">Edinburgh</option>
+        <option value="Kiev">Kiev</option>
+        <option value="London">London</option>
+        <option value="Jakarta">Jakarta</option>
+        <option value="Madrid">Madrid</option>
+        <option value="Bangkok">Bangkok</option>
+        <option value="Canberra">Canberra</option>
+        <option value="Mexico City">Mexico City</option>
+        <option value="Mombassa">Mombassa</option>
+        <option value="Malaga">Malaga</option>
+        <option value="Honolulu">Honolulu</option>
+        <option value="Austin">Austin</option>
+      </select>
+      <input type ="button" value = "Go" onclick ="function1(this.form)">
+    </form>
+
+    <h2>Is a Food Source in a Dragon Habitat?</h2>
+      <p>Select a Food Source</p>
+      <form name "foodSource" method="" action="">
+        <select name = "foodSource">
+          <option value="Sheep">Sheep</option>
+          <option value="Cows">Cows</option>
+          <option value="People">People</option>
+          <option value="Dragons">Dragons</option>
+          <option value="Fish">Fish</option>
+          <option value="Trees">Trees</option>
+      </select>
+      <input type ="button" value = "Go" onclick ="function2(this.form)">
+    </form>
+
+    <h2>Settlement Near Food Source?</h2>
+      <p>Select a Settlement</p>
+      <form name "SettlementDanger2" method="" action="">
+        <select name = "settlementfood">
+          <option value="Budapest">Budapest</option>
+          <option value="Oslo">Oslo</option>
+          <option value="Wellington">Wellington</option>
+          <option value="Beijing">Beijing</option>
+          <option value="Cardiff">Cardiff</option>
+          <option value="Stockholm">Stockholm</option>
+          <option value="Lima">Lima</option>
+          <option value="Bucharest">Bucharest</option>
+          <option value="Edinburgh">Edinburgh</option>
+          <option value="Kiev">Kiev</option>
+          <option value="London">London</option>
+          <option value="Jakarta">Jakarta</option>
+          <option value="Madrid">Madrid</option>
+          <option value="Bangkok">Bangkok</option>
+          <option value="Canberra">Canberra</option>
+          <option value="Mexico City">Mexico City</option>
+          <option value="Mombassa">Mombassa</option>
+          <option value="Malaga">Malaga</option>
+          <option value="Honolulu">Honolulu</option>
+          <option value="Austin">Austin</option>
+      </select>
+    <input type ="button" value = "Go" onclick ="function3(this.form)">
+  </form>
+
+  <h2>Settlement Near Migration Route?</h2>
+    <p>Select a Settlement</p>
+    <form name "SettlementDanger3" method="" action="">
+      <select name = "settlementdang">
+        <option value="Budapest">Budapest</option>
+        <option value="Oslo">Oslo</option>
+        <option value="Wellington">Wellington</option>
+        <option value="Beijing">Beijing</option>
+        <option value="Cardiff">Cardiff</option>
+        <option value="Stockholm">Stockholm</option>
+        <option value="Lima">Lima</option>
+        <option value="Bucharest">Bucharest</option>
+        <option value="Edinburgh">Edinburgh</option>
+        <option value="Kiev">Kiev</option>
+        <option value="London">London</option>
+        <option value="Jakarta">Jakarta</option>
+        <option value="Madrid">Madrid</option>
+        <option value="Bangkok">Bangkok</option>
+        <option value="Canberra">Canberra</option>
+        <option value="Mexico City">Mexico City</option>
+        <option value="Mombassa">Mombassa</option>
+        <option value="Malaga">Malaga</option>
+        <option value="Honolulu">Honolulu</option>
+        <option value="Austin">Austin</option>
+      </select>
+    <input type ="button" value = "Go" onclick ="function4(this.form)">
+  </form>
+
+  <h2>How far is a Dragon Habitat from Another?</h2>
+    <p>Select Two Habitats</p>
+    <form name "habitatDistance" method="" action="">
+      <select name = "habitat1">
+        <option value="Hungary">Hungary</option>
+        <option value="Norway">Norway</option>
+        <option value="New Zealand">New Zealand</option>
+        <option value="China">China</option>
+        <option value="Wales">Wales</option>
+        <option value="Sweden">Sweden</option>
+        <option value="Peru">Peru</option>
+        <option value="Romania">Romania</option>
+        <option value="Scotland">Scotland</option>
+        <option value="Ukraine">Ukraine</option>
+        <option value="England">England</option>
+        <option value="Indonesia">Indonesia</option>
+        <option value="Spain">Spain</option>
+        <option value="Thailand">Thailand</option>
+        <option value="Australia">Australia</option>
+        <option value="Mexico">Mexico</option>
+        <option value="Kenya">Kenya</option>
+        <option value="SouthSpain">SouthSpain</option>
+        <option value="Hawaii">Hawaii</option>
+        <option value="Texas">Texas</option>
+      </select>
+      <select name = "habitat2">
+        <option value="Hungary">Hungary</option>
+        <option value="Norway">Norway</option>
+        <option value="New Zealand">New Zealand</option>
+        <option value="China">China</option>
+        <option value="Wales">Wales</option>
+        <option value="Sweden">Sweden</option>
+        <option value="Peru">Peru</option>
+        <option value="Romania">Romania</option>
+        <option value="Scotland">Scotland</option>
+        <option value="Ukraine">Ukraine</option>
+        <option value="England">England</option>
+        <option value="Indonesia">Indonesia</option>
+        <option value="Spain">Spain</option>
+        <option value="Thailand">Thailand</option>
+        <option value="Australia">Australia</option>
+        <option value="Mexico">Mexico</option>
+        <option value="Kenya">Kenya</option>
+        <option value="SouthSpain">SouthSpain</option>
+        <option value="Hawaii">Hawaii</option>
+        <option value="Texas">Texas</option>
+      </select>
+      <input type ="button" value = "Go" onclick ="function5(this.form)">
+    </form>
+
+    <h2>Migration Route Intersection?</h2>
+      <p>Select a Dragon</p>
+      <form name "dragonRouteIntersect" method="" action="">
+        <select name = "dragonroute">
+          <option value="Hungarian_Horntail">Hungarian_Horntail</option>
+          <option value="Norwegian_Ridgeback">Norwegian_Ridgeback</option>
+          <option value="Antipodean_Opaleye">Antipodean_Opaleye</option>
+          <option value="Chinese_Fireball">Chinese_Fireball</option>
+          <option value="Common_Welsh_Green">Common_Welsh_Green</option>
+          <option value="Swedish_Short-Snout">Swedish_Short-Snout</option>
+          <option value="Peruvian_Vipertooth">Peruvian_Vipertooth</option>
+          <option value="Romanian_Longhorn">Romanian_Longhorn</option>
+          <option value="Hebridian_Black">Hebridian_Black</option>
+          <option value="Ukrainian_Ironbelly">Ukrainian_Ironbelly</option>
+          <option value="Catalonian_Fireball">Catalonian_Fireball</option>
+          <option value="Wyvern">Wyvern</option>
+        </select>
+      <input type ="button" value = "Go" onclick ="function6(this.form)">
+    </form>
+
+    <h2>Migration Route and Habitat Intersection?</h2>
+      <p>Select a Dragon Route</p>
+        <form name "routeHabitatIntersect" method="" action="">
+          <select name = "dragonroute2">
+            <option value="Hungarian_Horntail">Hungarian_Horntail</option>
+            <option value="Norwegian_Ridgeback">Norwegian_Ridgeback</option>
+            <option value="Antipodean_Opaleye">Antipodean_Opaleye</option>
+            <option value="Chinese_Fireball">Chinese_Fireball</option>
+            <option value="Common_Welsh_Green">Common_Welsh_Green</option>
+            <option value="Swedish_Short-Snout">Swedish_Short-Snout</option>
+            <option value="Peruvian_Vipertooh">Peruvian_Vipertooth</option>
+            <option value="Romanian_Longhorn">Romanian_Longhorn</option>
+            <option value="Hebridian_Black">Hebridian_Black</option>
+            <option value="Ukrainian_Ironbelly">Ukrainian_Ironbelly</option>
+            <option value="Catalonian_Fireball">Catalonian_Fireball</option>
+            <option value="Wyvern">Wyvern</option>
+          <input type ="button" value = "Go" onclick ="function7(this.form)">
+        </form>
+    <h2>Add Dragon Sighting</h2>
+        <table>
+          <form name="AddStuff" method="" action="">
+            <tr><td>New ID:</td> <td><input type="text" name="newID"></td></tr>
+            <tr><td>X Coordinate:</td> <td><input type="text" name="newX"></td></tr>
+            <tr><td>Y Coordinate:</td> <td><input type="text" name="newY"></td></tr>
+            <tr><td></td><td><input type="button" value="Add Dragon!" onclick="function8(this.form)"></td></tr>
+          </form>
+        </table>
+
+<script>
+
+//  create map object, tell it to live in 'map' div and give initial latitude, longitude, zoom values
+var map = L.map('map', {scrollWheelZoom:true}).setView([43.64701, 0], 2);
+
+//  add base map tiles from OpenStreetMap and attribution info to 'map' div
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// create custom icon
+var dragonIcon = L.icon({
+    iconUrl: 'https://www.geos.ed.ac.uk/~s1234874/Static/dragon_images/black_dragon_icon.png',
+    iconSize: [30, 40], // size of the icon
+    });
+
+
+
+// create marker object, pass custom icon as option, add to map
+var norwegianRidgebackMK = L.marker([30.2744751,-97.739624], {icon: dragonIcon}).addTo(map);
+    hungarianHorntailMK = L.marker([47.529003, 20.561310], {icon: dragonIcon}).addTo(map);
+
+hungarianHorntailMK.bindPopup("<b>Hungarian Horntail</b>")
+norwegianRidgebackMK.bindPopup("<b>Norwegian Ridgeback</b>")
+
+var name = {{ data|safe }};
+alert(name);
+
+var regions =
+  [{"type": "Feature", "properties": {"temp_min": "18", "temp_max": "30", "name": "Hungary", "zone_id": 1, "season": "Summer"}, "geometry": {"coordinates": [[[18.773926, 47.939879999999995], [20.157104, 48.59491], [22.153686999999998, 48.755126999999995], [23.208923, 47.997313999999996], [21.811279, 46.073119999999996], [18.474304, 45.466308999999995], [16.192688, 46.241088999999995], [16.549072, 47.662109], [18.773926, 47.939879999999995]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "10", "temp_max": "20", "name": "Norway", "zone_id": 2, "season": "Summer"}, "geometry": {"coordinates": [[[27.180481, 69.4021], [22.688477, 68.739929], [17.376282, 67.050293], [11.065918, 67.008484], [12.563293, 69.389526], [21.86853, 71.612488], [29.747498, 71.47711199999999], [31.494507, 70.310486], [29.569274999999998, 69.489685], [27.180481, 69.4021]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "17", "temp_max": "30", "name": "New Zealand", "zone_id": 3, "season": "Summer"}, "geometry": {"coordinates": [[[169.91369600000002, -34.214783], [172.76568600000002, -32.46759], [178.565125, -36.387085], [178.27990699999998, -41.982482999999995], [172.00512700000002, -45.948975], [167.061523, -49.155884], [164.019104, -46.40979], [172.290283, -39.607727], [172.575684, -37.451172], [169.91369600000002, -34.214783]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "20", "temp_max": "35", "name": "China", "zone_id": 4, "season": "Summer"}, "geometry": {"coordinates": [[[116.863525, 36.248901], [109.35290499999999, 28.30249], [92.715271, 29.633301], [93.856079, 38.589293999999995], [102.317505, 43.462708], [115.62750199999999, 44.961731], [120.57128900000001, 41.428528], [116.863525, 36.248901]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "17", "temp_max": "22", "name": "Wales", "zone_id": 5, "season": "Summer"}, "geometry": {"coordinates": [[[-2.293274, 51.878906], [-2.768677, 51.430724999999995], [-4.523499, 51.240294999999996], [-5.582825, 51.867126], [-4.289795, 52.485107], [-5.01239, 52.968689], [-4.538574, 53.583313], [-3.072876, 53.594116], [-2.293274, 51.878906]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "12", "temp_max": "20", "name": "Sweden", "zone_id": 6, "season": "Summer"}, "geometry": {"coordinates": [[[17.728882, 62.486328], [17.861877, 61.194275], [20.167479999999998, 59.561707], [16.72113, 58.323485999999995], [17.315307999999998, 56.532470999999994], [15.366271999999999, 55.0495], [12.870728, 55.171875], [12.005493, 56.658080999999996], [11.168884, 58.681090999999995], [12.176696999999999, 60.92749], [14.74353, 62.318909], [17.728882, 62.486328]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "17", "temp_max": "34", "name": "Peru", "zone_id": 7, "season": "Summer"}, "geometry": {"coordinates": [[[-75.590515, -0.463989], [-73.03540000000001, -1.266113], [-70.30212399999999, -2.1569819999999997], [-69.73761, -4.322204999999999], [-72.88690199999999, -5.210388], [-73.421692, -8.160889], [-70.86657699999999, -9.716308999999999], [-68.668091, -12.340575999999999], [-69.232483, -14.018310999999999], [-71.757812, -12.427612], [-75.17450000000001, -11.264586999999999], [-76.570923, -8.366698999999999], [-76.808594, -4.174011], [-75.590515, -0.463989]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "12", "temp_max": "30", "name": "Romania", "zone_id": 8, "season": "Summer"}, "geometry": {"coordinates": [[[20.58313, 46.462523999999995], [21.438720999999997, 47.756530999999995], [25.360474, 48.643677], [28.474121, 47.307311999999996], [29.971497, 45.137085], [27.452087, 43.797118999999995], [23.506531, 43.694092], [20.915893999999998, 45.002686], [20.58313, 46.462523999999995]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "16", "temp_max": "25", "name": "Scotland", "zone_id": 9, "season": "Summer"}, "geometry": {"coordinates": [[[-5.371582, 55.331298999999994], [-7.177917, 55.814879999999995], [-8.176207999999999, 57.435913], [-7.3204959999999994, 58.395325], [-5.728088, 58.668274], [-3.992981, 58.742492999999996], [-2.5906979999999997, 60.179320999999995], [-0.9268799999999999, 61.076904], [-0.11877399999999999, 60.426697], [-2.5668949999999997, 58.717712], [-3.802917, 57.817688], [-1.402283, 57.729126], [-2.2341919999999997, 56.686522999999994], [-5.371582, 55.331298999999994]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "14", "temp_max": "29", "name": "Ukraine", "zone_id": 10, "season": "Summer"}, "geometry": {"coordinates": [[[30.708312999999997, 51.376892], [31.30249, 52.185486], [33.726684999999996, 52.418091], [37.505919999999996, 50.538512999999995], [40.262878, 49.438292999999994], [38.976501, 47.483886999999996], [36.483886999999996, 46.577087], [30.99353, 45.803711], [27.428283999999998, 46.117675999999996], [22.502686, 47.033874999999995], [21.866516, 48.470703], [22.817321999999997, 50.854675], [25.194091999999998, 52.010315], [30.708312999999997, 51.376892]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "18", "temp_max": "40", "name": "Spain", "zone_id": 11, "season": "Summer"}, "geometry": {"coordinates": [[[-7.439392, 37.124511999999996], [-6.048889, 42.039307], [-9.114989999999999, 41.853699], [-9.264709, 43.482727], [-6.548096, 44.173279], [-1.3071899999999999, 43.375305], [3.5415039999999998, 42.303528], [2.792725, 40.890502999999995], [0.11889599999999999, 39.501892], [-0.166382, 37.039124], [-5.977600000000001, 35.834472999999996], [-7.439392, 37.124511999999996]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "18", "temp_max": "26", "name": "England", "zone_id": 12, "season": "Summer"}, "geometry": {"coordinates": [[[-5.906311, 50.037292], [-4.031372, 51.293884], [-2.2932129999999997, 51.878906], [-3.2324829999999998, 52.642272999999996], [-2.98291, 54.276489], [-5.228882, 54.937317], [-5.122008999999999, 56.008117999999996], [-2.626404, 56.991882], [0.61792, 53.094116], [2.471924, 52.533874999999995], [1.6875, 50.967102], [-2.1207279999999997, 50.376281999999996], [-5.906311, 50.037292]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "30", "temp_max": "40", "name": "Indonesia", "zone_id": 13, "season": "Winter"}, "geometry": {"coordinates": [[[95.11492899999999, 16.688720999999997], [103.076904, 21.33252], [116.74352999999999, 6.880675999999999], [123.517517, 0.47168], [145.978271, -1.666077], [160.001526, -5.689575], [164.517273, -12.231323], [154.41571, -13.842224], [145.26532, -12.807922], [127.914673, -13.61261], [110.326111, -12.000304999999999], [95.82788099999999, -4.154297], [90.864319, 9.649719], [95.11492899999999, 16.688720999999997]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "30", "temp_max": "42", "name": "Thailand", "zone_id": 14, "season": "Winter"}, "geometry": {"coordinates": [[[100.360291, 22.799682999999998], [108.916687, 21.080078], [113.05249, 13.876526], [109.059326, 9.548888999999999], [99.076904, 9.126709], [92.745728, 12.7901], [95.11492899999999, 16.688720999999997], [100.360291, 22.799682999999998]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "20", "temp_max": "45", "name": "Australia", "zone_id": 15, "season": "Winter"}, "geometry": {"coordinates": [[[124.603699, -10.17511], [141.431274, -9.472595], [156.975708, -17.236083999999998], [158.702087, -32.537597999999996], [154.266113, -45.162903], [143.14270000000002, -44.148499], [129.30969199999998, -36.554626], [116.902893, -38.811401], [110.057678, -33.875305], [111.055908, -19.401978], [124.603699, -10.17511]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "22", "temp_max": "37", "name": "Mexico", "zone_id": 16, "season": "Winter"}, "geometry": {"coordinates": [[[-119.398376, 33.345886], [-105.993286, 31.783690999999997], [-97.72198499999999, 27.319519], [-97.29418899999999, 20.680481], [-93.58642599999999, 18.531128], [-90.16381799999999, 21.478882], [-87.026428, 21.611511], [-83.889099, 16.080688], [-76.473389, 9.267517], [-79.895996, 3.743896], [-94.59729, 13.142883], [-109.415894, 19.071106], [-117.401917, 26.938720999999997], [-119.398376, 33.345886]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "20", "temp_max": "42", "name": "Kenya", "zone_id": 17, "season": "Winter"}, "geometry": {"coordinates": [[[35.188477, 5.733521], [42.746704, 4.881531], [43.602478, -3.666626], [38.611084, -5.514526], [32.478882, -2.38501], [34.026489, 2.351318], [32.193726, 4.312927], [35.188477, 5.733521]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "20", "temp_max": "30", "name": "Hawaii", "zone_id": 18, "season": "Winter"}, "geometry": {"coordinates": [[[-153.766907, 19.205872], [-158.615601, 16.491272], [-164.747681, 21.34613], [-160.7547, 24.886474999999997], [-153.481689, 22.272888], [-153.766907, 19.205872]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "0", "temp_max": "15", "name": "Spain", "zone_id": 19, "season": "Winter"}, "geometry": {"coordinates": [[[-4.659729, 37.184082], [-3.946716, 37.206908999999996], [-3.262085, 36.819702], [-3.846802, 35.912476], [-5.116089, 35.866271999999995], [-5.187378, 36.785278], [-4.659729, 37.184082]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"temp_min": "0", "temp_max": "15", "name": "Texas", "zone_id": 20, "season": "Winter"}, "geometry": {"coordinates": [[[-103.296814, 36.514708999999996], [-99.94549599999999, 36.514708999999996], [-99.66027799999999, 34.188721], [-93.95599399999999, 33.537476], [-93.67077599999999, 29.651671999999998], [-96.73687699999999, 28.02771], [-96.879395, 25.545471], [-99.94549599999999, 25.288086], [-101.423096, 29.341492], [-106.505493, 28.780272999999998], [-106.756226, 31.873473999999998], [-103.082886, 31.978271], [-103.296814, 36.514708999999996]]], "type": "Polygon"}}];
+
+L.geoJSON(regions, {
+    style: function(feature) {
+        switch (feature.properties.season) {
+            case 'Summer': return {color: "#ff0000"};
+            case 'Winter':   return {color: "#0000ff"};
+        }
+    }
+}).addTo(map);
+
+var settlements =
+  [{"geometry": {"type": "Point", "coordinates": [19.064086913999997, 47.475524902]}, "type": "Feature", "properties": {"start_id": 1}}, {"geometry": {"type": "Point", "coordinates": [10.731079102, 59.910705566]}, "type": "Feature", "properties": {"start_id": 2}}, {"geometry": {"type": "Point", "coordinates": [116.391906738, 39.906677246]}, "type": "Feature", "properties": {"start_id": 3}}, {"geometry": {"type": "Point", "coordinates": [174.770507812, -41.306884766]}, "type": "Feature", "properties": {"start_id": 4}}, {"geometry": {"type": "Point", "coordinates": [-3.166687012, 51.482727051000005]}, "type": "Feature", "properties": {"start_id": 5}}, {"geometry": {"type": "Point", "coordinates": [18.083496094, 59.32452392599999]}, "type": "Feature", "properties": {"start_id": 6}}, {"geometry": {"type": "Point", "coordinates": [-77.069702148, -12.037475586000001]}, "type": "Feature", "properties": {"start_id": 7}}, {"geometry": {"type": "Point", "coordinates": [26.108520508, 44.44329834]}, "type": "Feature", "properties": {"start_id": 8}}, {"geometry": {"type": "Point", "coordinates": [-3.16809082, 55.951477051000005]}, "type": "Feature", "properties": {"start_id": 9}}, {"geometry": {"type": "Point", "coordinates": [30.525512695, 50.453674316000004]}, "type": "Feature", "properties": {"start_id": 10}}, {"geometry": {"type": "Point", "coordinates": [-0.124511719, 51.501281738]}, "type": "Feature", "properties": {"start_id": 11}}, {"geometry": {"type": "Point", "coordinates": [106.823120117, -6.172912598]}, "type": "Feature", "properties": {"start_id": 12}}, {"geometry": {"type": "Point", "coordinates": [-3.6912231450000004, 40.409912109]}, "type": "Feature", "properties": {"start_id": 13}}, {"geometry": {"type": "Point", "coordinates": [100.476318359, 13.743530273000001]}, "type": "Feature", "properties": {"start_id": 14}}, {"geometry": {"type": "Point", "coordinates": [149.103881836, -35.292480469]}, "type": "Feature", "properties": {"start_id": 15}}, {"geometry": {"type": "Point", "coordinates": [-99.13360595700001, 19.446289062]}, "type": "Feature", "properties": {"start_id": 16}}, {"geometry": {"type": "Point", "coordinates": [39.66607666, -4.039672852]}, "type": "Feature", "properties": {"start_id": 17}}, {"geometry": {"type": "Point", "coordinates": [-4.443786621, 36.71472168]}, "type": "Feature", "properties": {"start_id": 18}}, {"geometry": {"type": "Point", "coordinates": [-157.858337, 21.306943999999998]}, "type": "Feature", "properties": {"start_id": 19}}, {"geometry": {"type": "Point", "coordinates": [-97.739624023, 30.274475098]}, "type": "Feature", "properties": {"start_id": 20}}];
+
+
+var layerGroup = L.geoJSON(settlements, {
+  onEachFeature: function (feature, layer) {
+    layer.bindPopup('<h1>'+feature.properties.start_id+'</h1>');}
+  }).addTo(map);
+
+
+function highlightFeature(e) {
+  var layer = e.target;
+
+  layer.setStyle({
+      weight: 5,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+  });
+
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+  }
+};
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+};
+</script>
+
+<script language = "JavaScript">
+
+function dragonDanger(form) {
+  xcoord = form.xcoord.value;
+  ycoord = form.ycoord.value;
+  url = "dragondanger.py?xcoord="+xcoord+"&ycoord="+ycoord;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+    document.getElementByID("queryinfo").innerHTML = result
+  });
+  console.log(result)
+};
+
+function function1(form) {
+  settlement = form.settlement.value;
+  url = "SettlementDanger1.py?settlement="+settlement;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+};
+
+function function2(form) {
+  foodSource = form.foodSource.value;
+  url = "foodsource1.py?foodSource="+foodSource;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+};
+
+function function3(form) {
+  settlementfood = form.settlementfood.value;
+  url = "foodsettlement.py?settlementfood="+settlementfood;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+};
+
+function function4(form) {
+  settlement = form.settlement.value;
+  url = "migrationsettlement.py?settlement="+settlement;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result));
+  });
+  console.log(result)
+};
+
+</script>
+
+  </body>
+</html>
