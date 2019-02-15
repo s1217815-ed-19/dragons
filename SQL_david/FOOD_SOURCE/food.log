@@ -1,0 +1,52 @@
+
+SQL*Loader: Release 11.2.0.3.0 - Production on Thu Feb 14 14:28:24 2019
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   food.ctl
+Data File:      dragonfood.csv
+  Bad File:     dragonfood.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     64 rows, maximum of 256000 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table S1234874.FOOD_SOURCE, loaded from every logical record.
+Insert option in effect for this table: REPLACE
+TRAILING NULLCOLS option in effect
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+FOOD_SOURCE_ID                      FIRST     *   ,  O(") CHARACTER            
+FOOD_TYPE                            NEXT     *   ,  O(") CHARACTER            
+
+Record 1: Rejected - Error on table S1234874.FOOD_SOURCE, column FOOD_SOURCE_ID.
+ORA-01722: invalid number
+
+
+Table S1234874.FOOD_SOURCE:
+  17 Rows successfully loaded.
+  1 Row not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                  33024 bytes(64 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:            18
+Total logical records rejected:         1
+Total logical records discarded:        0
+
+Run began on Thu Feb 14 14:28:24 2019
+Run ended on Thu Feb 14 14:28:34 2019
+
+Elapsed time was:     00:00:09.87
+CPU time was:         00:00:00.03

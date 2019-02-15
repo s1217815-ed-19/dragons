@@ -1,0 +1,28 @@
+SQL> start select_regions.sql
+
+Regions table                                                                                       
+Region ID Name            Season     Temp Min (C) Temp Max (C)                                      
+========= =============== ========== ============ ============                                      
+        1 Hungary         Summer               18           30                                      
+        2 Norway                               10           20                                      
+        3 New Zealand                          17           30                                      
+        4 China                                20           35                                      
+        5 Wales                                17           22                                      
+        6 Sweden                               12           20                                      
+        7 Peru                                 17           34                                      
+        8 Romania                              12           30                                      
+        9 Scotland                             16           25                                      
+       10 Ukraine                              14           29                                      
+       11 Spain                                18           40                                      
+       12 England                              18           26                                      
+                                                                                                    
+       13 Indonesia       Winter               30           40                                      
+       14 Thailand                             30           42                                      
+       15 Australia                            20           45                                      
+       16 Mexico                               22           37                                      
+       17 Kenya                                20           42                                      
+       18 Hawaii                               20           30                                      
+       19 Spain                                 0           15                                      
+       20 Texas                                 0           15                                      
+                                                                                                    
+SQL> spool off
