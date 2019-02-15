@@ -12,11 +12,7 @@ def habitatDistance(habitat1, habitat2):
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
     #how far are the centroids of two habitats from one another
-    query = "SELECT A.NAME, B.NAME, SDO_GEOM.SDO_DISTANCE(
-SDO_GEOM.SDO_CENTROID(A.SHAPE, 0.005),
-SDO_GEOM.SDO_CENTROID(B.SHAPE, 0.005), .005)
-FROM S1234874.REGION A, S1234874.REGION B
-  5  WHERE A.NAME = '"+habitat1+"' AND B.NAME ='"+habitat+"'"
+    query = "SELECT A.NAME, B.NAME, SDO_GEOM.SDO_DISTANCE(SDO_GEOM.SDO_CENTROID(A.SHAPE, 0.005),SDO_GEOM.SDO_CENTROID(B.SHAPE, 0.005), .005) FROM S1234874.REGION A, S1234874.REGION B WHERE A.NAME = '"+habitat1+"' AND B.NAME ='"+habitat2+"'"
 
     c.execute(query)
     html = {}
@@ -38,7 +34,9 @@ if __name__ == '__main__':
      if "habitat1" in form:
          habitat1 =form['habitat1'].value
      if "habitat2" in form:
-         habitat2 = form.['habitat2'].value
+         habitat2 = form['habitat2'].value
+     #habitat1 = 'Hungary'
+     #habitat2 = 'Spain'
      testvar = habitatDistance(habitat1, habitat2)
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)

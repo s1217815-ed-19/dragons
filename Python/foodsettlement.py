@@ -13,18 +13,16 @@ def foodSourceSettlement(settlement):
     c = conn.cursor()
 
     #how far is a settlement from food sources
-    query = "SELECT A.NAME, B.FOOD_TYPE, SDO_GEOM.SDO_DISTANCE(A.LOCATION, B.LOCATION, .005)
-FROM S1234874.SETTLEMENTS A, S1234874.FOOD_SOURCE B
-WHERE A.NAME ='"+settlement+"'" 
+    query = "SELECT A.NAME, B.FOOD_TYPE, SDO_GEOM.SDO_DISTANCE(A.LOCATION, B.LOCATION, .005) FROM S1234874.SETTLEMENTS A, S1234874.FOOD_SOURCE B WHERE A.NAME ='"+settlementfood+"'" 
     
     c.execute(query)
     html = {}
-    html["settlement"] = settlement
+    html["settlement"] = settlementfood
     distances = []
     foodsources = []
     for row in c:
-        distances = distances.append(row[2])
-        foodsources = foodsources.append(row[1])
+        distances.append(row[2])
+        foodsources.append(row[1])
 
     html["distances"] = distances
     html["foodsources"] = foodsources
@@ -38,9 +36,10 @@ if __name__ == '__main__':
      print("\n")
 
       #if the form is filled out, get the number, call the function, turn result into a JSON and send back
-     if "settlement" in form:
-         settlement =form['settlement'].value
-     testvar = foodSourceSettlement(settlement)
+     if "settlementfood" in form:
+         settlementfood =form['settlementfood'].value
+     #settlementfood = 'Budapest'
+     testvar = foodSourceSettlement(settlementfood)
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)
         
