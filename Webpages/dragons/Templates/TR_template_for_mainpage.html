@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  
+
   <!--Main Body -->
   <div class="containter-fluid">
     <div class="row content">
@@ -25,7 +25,470 @@
       </div>
       <div class="col-md-6">
 	<div class="well well-md">
-	  <!--insert leaflet map here-->
+
+  <div id='map'></div>
+  <script>
+
+    var migration = L.layerGroup();
+
+    var migration1 = {
+        "type": "LineString",
+        "coordinates": [[21.017517,69.476074], [-101.149902,21.526489]]
+    };
+
+    var migration2 = {
+        "type": "LineString",
+        "coordinates": [[-100.056580,31.097290], [18.925903,46.902100]]
+    };
+
+    var migration3 = {
+        "type": "LineString",
+        "coordinates": [[-4.560303,56.739685], [-4.443787,36.714722]]
+    };
+
+    var migration4 = {
+        "type": "LineString",
+        "coordinates": [[-3.895386,52.173889], [-4.443787,36.714722]]
+    };
+
+    var migration5 = {
+        "type": "LineString",
+        "coordinates": [[-1.565491,53.180908], [-4.443787,36.714722]]
+    };
+
+    var migration6 = {
+        "type": "LineString",
+        "coordinates": [[-2.207275,40.811096], [-4.443787,36.714722]]
+    };
+
+    var migration7 = {
+        "type": "LineString",
+        "coordinates": [[14.064270,59.799927], [134.092529,-25.111877]]
+    };
+
+
+    var migration8 = {
+        "type": "LineString",
+        "coordinates": [[24.389099,45.689087], [38.436096,-0.002197]]
+    };
+
+    var migration9 = {
+        "type": "LineString",
+        "coordinates": [[172.942322,-41.745422], [119.678284,-2.713684]]
+    };
+
+    var migration10 = {
+        "type": "LineString",
+        "coordinates": [[104.249512,15.217285], [31.234314,48.926880]]
+    };
+
+    var migration11 = {
+        "type": "LineString",
+        "coordinates": [[109.339294,31.158325], [-156.699707,20.750488]]
+    };
+
+    var migration12 = {
+        "type": "LineString",
+        "coordinates": [[-107.508911,26.775085], [-74.851685,-8.949890]]
+    };
+
+
+    L.geoJSON(migration1).addTo(migration);
+    L.geoJSON(migration2).addTo(migration);
+    L.geoJSON(migration3).addTo(migration);
+    L.geoJSON(migration4).addTo(migration);
+    L.geoJSON(migration5).addTo(migration);
+    L.geoJSON(migration6).addTo(migration);
+    L.geoJSON(migration7).addTo(migration);
+    L.geoJSON(migration8).addTo(migration);
+    L.geoJSON(migration9).addTo(migration);
+    L.geoJSON(migration10).addTo(migration);
+    L.geoJSON(migration11).addTo(migration);
+    L.geoJSON(migration12).addTo(migration);
+
+    var winterRegions = L.layerGroup();
+
+    var indonesia = {"type": "Feature",
+      "properties": {
+        "temp_min": "30",
+        "temp_max": "40",
+        "name": "Indonesia",
+        "zone_id": 13,
+        "season": "Winter",
+        "dragon": "Anitpodean Opaleye"},
+      "geometry": {
+        "coordinates": [[[95.11492899999999, 16.688720999999997], [103.076904, 21.33252], [116.74352999999999, 6.880675999999999], [123.517517, 0.47168], [145.978271, -1.666077], [160.001526, -5.689575], [164.517273, -12.231323], [154.41571, -13.842224], [145.26532, -12.807922], [127.914673, -13.61261], [110.326111, -12.000304999999999], [95.82788099999999, -4.154297], [90.864319, 9.649719], [95.11492899999999, 16.688720999999997]]],
+        "type": "Polygon"}};
+
+    var thailand = {"type": "Feature",
+      "properties": {
+        "temp_min": "30",
+        "temp_max": "42",
+        "name": "Thailand",
+        "zone_id": 14,
+        "season": "Winter",
+        "dragon": "Ukrainian Ironbelly"},
+      "geometry": {
+        "coordinates": [[[100.360291, 22.799682999999998], [108.916687, 21.080078], [113.05249, 13.876526], [109.059326, 9.548888999999999], [99.076904, 9.126709], [92.745728, 12.7901], [95.11492899999999, 16.688720999999997], [100.360291, 22.799682999999998]]],
+        "type": "Polygon"}};
+
+    var austalia = {"type": "Feature",
+      "properties": {
+        "temp_min": "20",
+        "temp_max": "45",
+        "name": "Australia",
+        "zone_id": 15,
+        "season": "Winter",
+        "dragon": "Swedish Short Snout"},
+      "geometry": {
+        "coordinates": [[[124.603699, -10.17511], [141.431274, -9.472595], [156.975708, -17.236083999999998], [158.702087, -32.537597999999996], [154.266113, -45.162903], [143.14270000000002, -44.148499], [129.30969199999998, -36.554626], [116.902893, -38.811401], [110.057678, -33.875305], [111.055908, -19.401978], [124.603699, -10.17511]]],
+        "type": "Polygon"}};
+
+    var mexico = {"type": "Feature",
+      "properties": {
+        "temp_min": "22",
+        "temp_max": "37",
+        "name": "Mexico",
+        "zone_id": 16,
+        "season": "Winter",
+        "dragon": "Peruvian Vipertooth" + ", " + "Norwegian Ridgeback"},
+      "geometry": {
+        "coordinates": [[[-119.398376, 33.345886], [-105.993286, 31.783690999999997], [-97.72198499999999, 27.319519], [-97.29418899999999, 20.680481], [-93.58642599999999, 18.531128], [-90.16381799999999, 21.478882], [-87.026428, 21.611511], [-83.889099, 16.080688], [-76.473389, 9.267517], [-79.895996, 3.743896], [-94.59729, 13.142883], [-109.415894, 19.071106], [-117.401917, 26.938720999999997], [-119.398376, 33.345886]]],
+        "type": "Polygon"}};
+
+    var kenya = {"type": "Feature",
+      "properties": {
+        "temp_min": "20",
+        "temp_max": "42",
+        "name": "Kenya",
+        "zone_id": 17,
+        "season": "Winter",
+        "dragon": "Romanian Longhorn"},
+      "geometry": {
+        "coordinates": [[[35.188477, 5.733521], [42.746704, 4.881531], [43.602478, -3.666626], [38.611084, -5.514526], [32.478882, -2.38501], [34.026489, 2.351318], [32.193726, 4.312927], [35.188477, 5.733521]]],
+        "type": "Polygon"}};
+
+    var hawaii = {"type": "Feature",
+      "properties": {
+        "temp_min": "20",
+        "temp_max": "30",
+        "name": "Hawaii",
+        "zone_id": 18,
+        "season": "Winter",
+        "dragon": "Chinese Fireball"},
+      "geometry": {
+        "coordinates": [[[-153.766907, 19.205872], [-158.615601, 16.491272], [-164.747681, 21.34613], [-160.7547, 24.886474999999997], [-153.481689, 22.272888], [-153.766907, 19.205872]]],
+        "type": "Polygon"}};
+
+    var malaga = {"type": "Feature",
+      "properties": {
+        "temp_min": "0",
+        "temp_max": "15",
+        "name": "Malaga",
+        "zone_id": 19,
+        "season": "Winter",
+        "dragon": "Common Welsh Green" + ", " + "Hebridian Black" + ", " + "Wyvern"},
+      "geometry": {
+        "coordinates": [[[-4.659729, 37.184082], [-3.946716, 37.206908999999996], [-3.262085, 36.819702], [-3.846802, 35.912476], [-5.116089, 35.866271999999995], [-5.187378, 36.785278], [-4.659729, 37.184082]]],
+        "type": "Polygon"}};
+
+    var texas = {"type": "Feature",
+      "properties": {
+        "temp_min": "0",
+        "temp_max": "15",
+        "name": "Texas",
+        "zone_id": 20,
+        "season": "Winter",
+        "dragon": "Hungarian Horntail"},
+      "geometry": {"coordinates": [[[-103.296814, 36.514708999999996], [-99.94549599999999, 36.514708999999996], [-99.66027799999999, 34.188721], [-93.95599399999999, 33.537476], [-93.67077599999999, 29.651671999999998], [-96.73687699999999, 28.02771], [-96.879395, 25.545471], [-99.94549599999999, 25.288086], [-101.423096, 29.341492], [-106.505493, 28.780272999999998], [-106.756226, 31.873473999999998], [-103.082886, 31.978271], [-103.296814, 36.514708999999996]]],
+      "type": "Polygon"}};
+
+    var winterStyle = {
+        "color": "#08D8E6",
+        "weight": 3}
+        L.geoJSON(indonesia, {style: winterStyle}).addTo(winterRegions);
+        L.geoJSON(thailand, {style: winterStyle}).addTo(winterRegions);
+        L.geoJSON(austalia, {style: winterStyle}).addTo(winterRegions);
+        L.geoJSON(mexico, {style: winterStyle}).addTo(winterRegions);
+        L.geoJSON(kenya, {style: winterStyle}).addTo(winterRegions);
+        L.geoJSON(hawaii, {style: winterStyle}).addTo(winterRegions);
+        L.geoJSON(malaga, {style: winterStyle}).addTo(winterRegions);
+        L.geoJSON(texas, {style: winterStyle}).addTo(winterRegions);
+
+    var summerRegions = L.layerGroup();
+
+    var hungary = {"type": "Feature",
+      "properties": {
+        "temp_min": "18",
+        "temp_max": "30",
+        "name": "Hungary",
+        "zone_id": 1,
+        "season": "Summer",
+        "dragon": "Hungarian Horntail"},
+      "geometry": {
+        "coordinates": [[[18.773926, 47.939879999999995], [20.157104, 48.59491], [22.153686999999998, 48.755126999999995], [23.208923, 47.997313999999996], [21.811279, 46.073119999999996], [18.474304, 45.466308999999995], [16.192688, 46.241088999999995], [16.549072, 47.662109], [18.773926, 47.939879999999995]]],
+        "type": "Polygon"}};
+
+    var norway = {"type": "Feature",
+      "properties": {
+        "temp_min": "10",
+        "temp_max": "20",
+        "name": "Norway",
+        "zone_id": 2,
+        "season": "Summer",
+        "dragon": "Norwegian Ridgeback"},
+      "geometry": {
+        "coordinates": [[[27.180481, 69.4021], [22.688477, 68.739929], [17.376282, 67.050293], [11.065918, 67.008484], [12.563293, 69.389526], [21.86853, 71.612488], [29.747498, 71.47711199999999], [31.494507, 70.310486], [29.569274999999998, 69.489685], [27.180481, 69.4021]]],
+        "type": "Polygon"}};
+
+    var new_zealand = {"type": "Feature",
+      "properties": {
+        "temp_min": "17",
+        "temp_max": "30",
+        "name": "New Zealand",
+        "zone_id": 3,
+        "season": "Summer",
+        "dragon": "Anitpodean Opaleye"},
+      "geometry": {
+        "coordinates": [[[169.91369600000002, -34.214783], [172.76568600000002, -32.46759], [178.565125, -36.387085], [178.27990699999998, -41.982482999999995], [172.00512700000002, -45.948975], [167.061523, -49.155884], [164.019104, -46.40979], [172.290283, -39.607727], [172.575684, -37.451172], [169.91369600000002, -34.214783]]],
+        "type": "Polygon"}};
+
+    var china = {"type": "Feature",
+      "properties": {
+        "temp_min": "20",
+        "temp_max": "35",
+        "name": "China",
+        "zone_id": 4,
+        "season": "Summer",
+        "dragon": "Chinese Fireball"},
+      "geometry": {
+        "coordinates": [[[116.863525, 36.248901], [109.35290499999999, 28.30249], [92.715271, 29.633301], [93.856079, 38.589293999999995], [102.317505, 43.462708], [115.62750199999999, 44.961731], [120.57128900000001, 41.428528], [116.863525, 36.248901]]],
+        "type": "Polygon"}};
+
+    var wales = {"type": "Feature",
+      "properties": {
+        "temp_min": "17",
+        "temp_max": "22",
+        "name": "Wales",
+        "zone_id": 5,
+        "season": "Summer",
+        "dragon": "Common Welsh Green"},
+      "geometry": {
+        "coordinates": [[[-2.293274, 51.878906], [-2.768677, 51.430724999999995], [-4.523499, 51.240294999999996], [-5.582825, 51.867126], [-4.289795, 52.485107], [-5.01239, 52.968689], [-4.538574, 53.583313], [-3.072876, 53.594116], [-2.293274, 51.878906]]],
+        "type": "Polygon"}};
+
+    var sweden = {"type": "Feature",
+      "properties": {
+        "temp_min": "12",
+        "temp_max": "20",
+        "name": "Sweden",
+        "zone_id": 6,
+        "season": "Summer",
+        "dragon": "Swedish Short Snout"},
+      "geometry": {
+        "coordinates": [[[17.728882, 62.486328], [17.861877, 61.194275], [20.167479999999998, 59.561707], [16.72113, 58.323485999999995], [17.315307999999998, 56.532470999999994], [15.366271999999999, 55.0495], [12.870728, 55.171875], [12.005493, 56.658080999999996], [11.168884, 58.681090999999995], [12.176696999999999, 60.92749], [14.74353, 62.318909], [17.728882, 62.486328]]],
+        "type": "Polygon"}};
+
+    var peru = {"type": "Feature",
+      "properties": {
+        "temp_min": "17",
+        "temp_max": "34",
+        "name": "Peru",
+        "zone_id": 7,
+        "season": "Summer",
+        "dragon": "Peruvian Vipertooth"},
+      "geometry": {
+        "coordinates": [[[-75.590515, -0.463989], [-73.03540000000001, -1.266113], [-70.30212399999999, -2.1569819999999997], [-69.73761, -4.322204999999999], [-72.88690199999999, -5.210388], [-73.421692, -8.160889], [-70.86657699999999, -9.716308999999999], [-68.668091, -12.340575999999999], [-69.232483, -14.018310999999999], [-71.757812, -12.427612], [-75.17450000000001, -11.264586999999999], [-76.570923, -8.366698999999999], [-76.808594, -4.174011], [-75.590515, -0.463989]]],
+        "type": "Polygon"}};
+
+    var romania = {"type": "Feature",
+      "properties": {
+        "temp_min": "12",
+        "temp_max": "30",
+        "name": "Romania",
+        "zone_id": 8,
+        "season": "Summer",
+        "dragon": "Romanian Longhorn"},
+      "geometry": {
+        "coordinates": [[[20.58313, 46.462523999999995], [21.438720999999997, 47.756530999999995], [25.360474, 48.643677], [28.474121, 47.307311999999996], [29.971497, 45.137085], [27.452087, 43.797118999999995], [23.506531, 43.694092], [20.915893999999998, 45.002686], [20.58313, 46.462523999999995]]],
+        "type": "Polygon"}};
+
+    var scotland = {"type": "Feature",
+      "properties": {
+        "temp_min": "16",
+        "temp_max": "25",
+        "name": "Scotland",
+        "zone_id": 9,
+        "season": "Summer",
+        "dragon": "Hebridean Black"},
+      "geometry": {
+        "coordinates": [[[-5.371582, 55.331298999999994], [-7.177917, 55.814879999999995], [-8.176207999999999, 57.435913], [-7.3204959999999994, 58.395325], [-5.728088, 58.668274], [-3.992981, 58.742492999999996], [-2.5906979999999997, 60.179320999999995], [-0.9268799999999999, 61.076904], [-0.11877399999999999, 60.426697], [-2.5668949999999997, 58.717712], [-3.802917, 57.817688], [-1.402283, 57.729126], [-2.2341919999999997, 56.686522999999994], [-5.371582, 55.331298999999994]]],
+        "type": "Polygon"}};
+
+    var ukraine = {"type": "Feature",
+      "properties": {
+        "temp_min": "14",
+        "temp_max": "29",
+        "name": "Ukraine",
+        "zone_id": 10,
+        "season": "Summer",
+        "dragon": "Ukrainian Ironbelly"},
+      "geometry": {
+        "coordinates": [[[30.708312999999997, 51.376892], [31.30249, 52.185486], [33.726684999999996, 52.418091], [37.505919999999996, 50.538512999999995], [40.262878, 49.438292999999994], [38.976501, 47.483886999999996], [36.483886999999996, 46.577087], [30.99353, 45.803711], [27.428283999999998, 46.117675999999996], [22.502686, 47.033874999999995], [21.866516, 48.470703], [22.817321999999997, 50.854675], [25.194091999999998, 52.010315], [30.708312999999997, 51.376892]]],
+        "type": "Polygon"}};
+
+    var spain = {"type": "Feature",
+      "properties": {
+        "temp_min": "18",
+        "temp_max": "40",
+        "name": "Spain",
+        "zone_id": 11,
+        "season": "Summer",
+        "dragon": "Catalonian Fireball"},
+      "geometry": {
+        "coordinates": [[[-7.439392, 37.124511999999996], [-6.048889, 42.039307], [-9.114989999999999, 41.853699], [-9.264709, 43.482727], [-6.548096, 44.173279], [-1.3071899999999999, 43.375305], [3.5415039999999998, 42.303528], [2.792725, 40.890502999999995], [0.11889599999999999, 39.501892], [-0.166382, 37.039124], [-5.977600000000001, 35.834472999999996], [-7.439392, 37.124511999999996]]],
+        "type": "Polygon"}};
+
+    var england = {"type": "Feature",
+      "properties": {
+        "temp_min": "18",
+        "temp_max": "26",
+        "name": "England",
+        "zone_id": 12,
+        "season": "Summer",
+        "dragon": "Wyvern"},
+      "geometry": {
+        "coordinates": [[[-5.906311, 50.037292], [-4.031372, 51.293884], [-2.2932129999999997, 51.878906], [-3.2324829999999998, 52.642272999999996], [-2.98291, 54.276489], [-5.228882, 54.937317], [-5.122008999999999, 56.008117999999996], [-2.626404, 56.991882], [0.61792, 53.094116], [2.471924, 52.533874999999995], [1.6875, 50.967102], [-2.1207279999999997, 50.376281999999996], [-5.906311, 50.037292]]],
+        "type": "Polygon"}};
+
+
+    var summerStyle = {
+        "color": "#E61608",
+        "weight": 3}
+      L.geoJSON(hungary, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(norway, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(new_zealand, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(china, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(wales, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(sweden, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(peru, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(romania, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(scotland, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(ukraine, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(spain, {style: summerStyle}).addTo(summerRegions);
+      L.geoJSON(england, {style: summerStyle}).bindPopup("<h1>England</h1><b>Dragons: </b>Wyvern").addTo(summerRegions);
+
+
+    var cities = L.layerGroup();
+
+      var settlement = L.icon({
+        iconUrl: 'https://www.geos.ed.ac.uk/~s1234874/Static/dragon_images/settlement.png',
+        iconSize: [30, 30], // size of the icon
+        });
+
+    	L.marker([47.475524902, 19.064086913999997], {icon: settlement}).bindPopup('Budapest').addTo(cities);
+    	L.marker([59.910705566, 10.731079102], {icon: settlement}).bindPopup('Oslo').addTo(cities);
+    	L.marker([39.906677246, 116.391906738], {icon: settlement}).bindPopup('Beijing').addTo(cities);
+    	L.marker([-41.306884766, 174.770507812], {icon: settlement}).bindPopup('Wellington').addTo(cities);
+      L.marker([51.482727051000005, -3.166687012], {icon: settlement}).bindPopup('Cardiff').addTo(cities);
+      L.marker([59.32452392599999, 18.083496094], {icon: settlement}).bindPopup('Stockholm').addTo(cities);
+      L.marker([-12.037475586000001, -77.069702148], {icon: settlement}).bindPopup('Lima').addTo(cities);
+      L.marker([44.44329834, 26.108520508], {icon: settlement}).bindPopup('Bucharest').addTo(cities);
+      L.marker([55.951477051000005, -3.16809082], {icon: settlement}).bindPopup('Edinburgh').addTo(cities);
+      L.marker([50.453674316000004, 30.525512695], {icon: settlement}).bindPopup('Kiev').addTo(cities);
+      L.marker([51.501281738, -0.124511719], {icon: settlement}).bindPopup('London').addTo(cities);
+      L.marker([-6.172912598, 106.823120117], {icon: settlement}).bindPopup('Jakarta').addTo(cities);
+      L.marker([40.409912109, -3.6912231450000004], {icon: settlement}).bindPopup('Madrid').addTo(cities);
+      L.marker([13.743530273000001, 100.476318359], {icon: settlement}).bindPopup('Bangkok').addTo(cities);
+      L.marker([-35.292480469, 149.103881836], {icon: settlement}).bindPopup('Canberra').addTo(cities);
+      L.marker([19.446289062, -99.13360595700001], {icon: settlement}).bindPopup('Mexico City').addTo(cities);
+      L.marker([-4.039672852, 39.66607666], {icon: settlement}).bindPopup('Mombasa').addTo(cities);
+      L.marker([36.71472168, -4.443786621], {icon: settlement}).bindPopup('Malaga').addTo(cities);
+      L.marker([21.306943999999998, -157.858337], {icon: settlement}).bindPopup('Honolulu').addTo(cities);
+      L.marker([30.274475098, -97.739624023], {icon: settlement}).bindPopup('Austin').addTo(cities);
+
+    var food_source = L.layerGroup();
+
+      var sheep = L.icon({
+        iconUrl: 'https://www.geos.ed.ac.uk/~s1234874/Static/dragon_images/sheep.png',
+        iconSize: [60, 60], // size of the icon
+        });
+
+      var cows = L.icon({
+        iconUrl: 'https://www.geos.ed.ac.uk/~s1234874/Static/dragon_images/cow.png',
+        iconSize: [35, 35], // size of the icon
+        });
+
+      var people = L.icon({
+        iconUrl: 'https://www.geos.ed.ac.uk/~s1234874/Static/dragon_images/people.png',
+        iconSize: [30, 30], // size of the icon
+        });
+
+      var dragons = L.icon({
+        iconUrl: 'https://www.geos.ed.ac.uk/~s1234874/Static/dragon_images/dragonfood.png',
+        iconSize: [40, 40], // size of the icon
+        });
+
+      var fish = L.icon({
+        iconUrl: 'https://www.geos.ed.ac.uk/~s1234874/Static/dragon_images/fish.png',
+        iconSize: [40, 40], // size of the icon
+        });
+
+      var trees = L.icon({
+        iconUrl: 'https://www.geos.ed.ac.uk/~s1234874/Static/dragon_images/tree.png',
+        iconSize: [30, 30], // size of the icon
+        });
+
+      L.marker([62.211730957, -133.713989258], {icon: sheep}).addTo(food_source);
+      L.marker([35.381103516, -118.835327148], {icon: cows}).addTo(food_source);
+      L.marker([42.154724121, -93.593688965], {icon: people}).addTo(food_source);
+      L.marker([45.068908691, -64.230712891], {icon: dragons}).addTo(food_source);
+      L.marker([39.349304199, -8.183471680], {icon: fish}).addTo(food_source);
+      L.marker([53.008911133, -4.768188477], {icon: trees}).addTo(food_source);
+      L.marker([48.260498047, 2.630920410], {icon: sheep}).addTo(food_source);
+      L.marker([44.440307617, 11.211120605], {icon: cows}).addTo(food_source);
+      L.marker([53.951721191, 28.538085938], {icon: people}).addTo(food_source);
+      L.marker([70.593078613, 26.417724609], {icon: dragons}).addTo(food_source);
+      L.marker([9.311889648, 39.233703613], {icon: fish}).addTo(food_source);
+      L.marker([2.351318359, 34.026489258], {icon: trees}).addTo(food_source);
+      L.marker([-30.336486816, 23.651672363], {icon: sheep}).addTo(food_source);
+      L.marker([67.686279297, 97.151306152], {icon: cows}).addTo(food_source);
+      L.marker([28.242309570, 83.798522949], {icon: sheep}).addTo(food_source);
+      L.marker([47.076110840, 102.694091797], {icon: cows}).addTo(food_source);
+      L.marker([-46.365112305, 168.217529297], {icon: fish}).addTo(food_source);
+
+
+
+    	var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+    			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+    			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    		mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+    	var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+    		streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+
+    	var map = L.map('map', {
+    		center: [43.64701, 0],
+    		zoom: 2,
+    		layers: [grayscale, summerRegions]
+    	});
+
+    	var baseLayers = {
+    		"Grayscale": grayscale,
+    		"Streets": streets
+    	};
+
+    	var overlays = {
+    		"Cities": cities,
+        "Food sources": food_source,
+        "Summer regions": summerRegions,
+        "Winter regions": winterRegions,
+        "Migration routes": migration
+    	};
+
+    	L.control.layers(baseLayers, overlays).addTo(map);
+    </script>
+
 	</div>
       </div>
       <div class="col-md-2">
@@ -35,7 +498,3 @@
       </div>
     </div>
   </div>
-  
-      
-	
-  
