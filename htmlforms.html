@@ -52,18 +52,7 @@ Content-Type:text/html
       });
       //when the JSON is ready format it into an alert and put below the form
       result.always(function(result) {
-        alert(JSON.stringify("Dragon Type: " + result.dragon + /n + "Diet: " +result.diet + /n + "Colour: " + result.colour +/n+ "Fire: " + result.fire + /n + "Weight: " + result.weight + /n + "Wingspan: " + result.wingspan + /n+ "Summer Region: " + result.summer + /n + "Winter Region: " + result.winter))
-        var dragon = JSON.stringify(result.dragon);
-        var diet = JSON.stringify(result.diet);
-        var weight = JSON.stringify(result.weight);
-        var fire = JSON.stringify(result.fire);
-        var colour = JSON.stringify(result.colour);
-        var summer = JSON.stringify(result.summer);
-        var winter = JSON.stringify(result.winter);
-        var wingspan = JSON.stringify(result.wingspan);
-        document.getElementById("queryinfo").innerHTML= dragon + /n + diet +/n + weight + /n + fire +/n + colour + /n + wingspan + /n + summer +/n + winter
-      });
-
+        alert(JSON.stringify(result));
       console.log(result);
   }
 

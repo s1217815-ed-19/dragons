@@ -3,21 +3,24 @@ import cgi
 import cgitb
 import cx_Oracle
 import json
-cgitb.enable()
+
+cgitb.enable(format='text')
+
 
 def foodSourceInside(foodSource):
     with open("/web/s1676540/webmappwd", 'r') as pwf:
         pwd = pwf.read().strip()
-   
+
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
-    
+
    #is a food source within a dragon habitat
     query = "SELECT A.REGION_ID, A.NAME FROM S1234874.REGION A, S1234874.FOOD_SOURCE B WHERE SDO_CONTAINS(A.SHAPE, B.LOCATION) = 'TRUE' AND B.FOOD_TYPE = '" +foodSource+"'"
-   
+
     c.execute(query)
     html = {}
     hab = []
+    html["food"] = foodSource
     for row in c:
         hab.append(row[1])
     html["habitat"] = hab
@@ -39,4 +42,3 @@ if __name__ == '__main__':
      testvar = foodSourceInside(foodSource)
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)
-        

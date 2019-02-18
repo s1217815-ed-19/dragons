@@ -8,13 +8,13 @@ cgitb.enable()
 def foodSourceSettlement(settlement):
     with open("/web/s1676540/webmappwd", 'r') as pwf:
         pwd = pwf.read().strip()
-   
+
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
 
     #how far is a settlement from food sources
-    query = "SELECT A.NAME, B.FOOD_TYPE, SDO_GEOM.SDO_DISTANCE(A.LOCATION, B.LOCATION, .005) FROM S1234874.SETTLEMENTS A, S1234874.FOOD_SOURCE B WHERE A.NAME ='"+settlementfood+"'" 
-    
+    query = "SELECT A.NAME, C.CLASS, SDO_GEOM.SDO_DISTANCE(A.LOCATION, B.LOCATION, .005) FROM S1234874.SETTLEMENTS A, S1234874.FOOD_SOURCE B, S1217815.FOOD_TYPE C WHERE C.FOOD_TYPE_ID = B.FOOD_TYPE AND A.NAME ='"+settlementfood+"'"
+
     c.execute(query)
     html = {}
     html["settlement"] = settlementfood
@@ -42,5 +42,3 @@ if __name__ == '__main__':
      testvar = foodSourceSettlement(settlementfood)
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)
-        
-

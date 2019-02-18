@@ -23,7 +23,7 @@ Content-Type: text/html
 
     <table>
       <form name="Dragon Info"  method="" action="">
-        <tr><td>Dragon:</td> <td><input type="text" name="dragon"></td></tr>
+        <tr><td>Dragon:</td> <td><input type="text" name="dragona"></td></tr>
         <tr><td></td><td><input type="button" value="Go!" onclick="dragonInfo(this.form)"></td></tr>
       </form>
     </table>
@@ -69,19 +69,19 @@ Content-Type: text/html
       <p>Select a Food Source</p>
       <form name "foodSource" method="" action="">
         <select name = "foodSource">
-          <option value="Sheep">Sheep</option>
-          <option value="Cows">Cows</option>
-          <option value="People">People</option>
-          <option value="Dragons">Dragons</option>
-          <option value="Fish">Fish</option>
-          <option value="Trees">Trees</option>
+          <option value="1">Sheep</option>
+          <option value="2">Cows</option>
+          <option value="3">People</option>
+          <option value="4">Dragons</option>
+          <option value="5">Fish</option>
+          <option value="6">Trees</option>
       </select>
       <input type ="button" value = "Go" onclick ="function2(this.form)">
     </form>
 
     <h2>Settlement Near Food Source?</h2>
       <p>Select a Settlement</p>
-      <form name "SettlementDanger2" method="" action="">
+      <form name "settlementfood" method="" action="">
         <select name = "settlementfood">
           <option value="Budapest">Budapest</option>
           <option value="Oslo">Oslo</option>
@@ -109,8 +109,8 @@ Content-Type: text/html
 
   <h2>Settlement Near Migration Route?</h2>
     <p>Select a Settlement</p>
-    <form name "SettlementDanger3" method="" action="">
-      <select name = "settlementdang">
+    <form name "setlementmigration" method="" action="">
+      <select name = "setlementmigration">
         <option value="Budapest">Budapest</option>
         <option value="Oslo">Oslo</option>
         <option value="Wellington">Wellington</option>
@@ -312,8 +312,7 @@ function dragonDanger(form) {
   var result = $.getJSON(url, function() {
   });
   result.always(function(result){
-    alert(JSON.stringify(result));
-    document.getElementByID("queryinfo").innerHTML = result
+    alert("You are in "+JSON.stringify(result.region)+" where "+JSON.stringify(result.dragon)+" live!");
   });
   console.log(result)
 };
@@ -324,7 +323,7 @@ function function1(form) {
   var result = $.getJSON(url, function() {
   });
   result.always(function(result){
-    alert(JSON.stringify(result));
+    alert(JSON.stringify(result.settlement)+" is in "+JSON.stringify(result.habitat));
   });
   console.log(result)
 };
@@ -335,7 +334,7 @@ function function2(form) {
   var result = $.getJSON(url, function() {
   });
   result.always(function(result){
-    alert(JSON.stringify(result));
+    alert(JSON.stringify(result.food)+" is in "+JSON.stringify(result.habitat));
   });
   console.log(result)
 };
@@ -346,21 +345,108 @@ function function3(form) {
   var result = $.getJSON(url, function() {
   });
   result.always(function(result){
-    alert(JSON.stringify(result));
+    alert(JSON.stringify(result.distances[0])+" metres from "+JSON.stringify(result.foodsources[0])+" and \n"+
+       JSON.stringify(result.distances[1])+" metres from "+JSON.stringify(result.foodsources[1])+" and \n"+
+       JSON.stringify(result.distances[2])+" metres from "+JSON.stringify(result.foodsources[2])+" and \n"+
+       JSON.stringify(result.distances[3])+" metres from "+JSON.stringify(result.foodsources[3])+" and \n"+
+       JSON.stringify(result.distances[4])+" metres from "+JSON.stringify(result.foodsources[4])+" and \n"+
+       JSON.stringify(result.distances[5])+" metres from "+JSON.stringify(result.foodsources[5])+" and \n"+
+       JSON.stringify(result.distances[6])+" metres from "+JSON.stringify(result.foodsources[6])+" and \n"+
+       JSON.stringify(result.distances[7])+" metres from "+JSON.stringify(result.foodsources[7])+" and \n"+
+       JSON.stringify(result.distances[8])+" metres from "+JSON.stringify(result.foodsources[8])+" and \n"+
+       JSON.stringify(result.distances[9])+" metres from "+JSON.stringify(result.foodsources[9])+" and \n"+
+       JSON.stringify(result.distances[10])+" metres from "+JSON.stringify(result.foodsources[10])+" and \n"+
+       JSON.stringify(result.distances[11])+" metres from "+JSON.stringify(result.foodsources[11])+" and \n"+
+       JSON.stringify(result.distances[12])+" metres from "+JSON.stringify(result.foodsources[12]));
   });
   console.log(result)
 };
 
 function function4(form) {
-  settlement = form.settlement.value;
-  url = "migrationsettlement.py?settlement="+settlement;
+  setlementmigration = form.setlementmigration.value;
+  url = "migrationsettlement.py?setlementmigration="+setlementmigration;
   var result = $.getJSON(url, function() {
   });
   result.always(function(result){
-    alert(JSON.stringify(result));
+    alert("The settlement is "+JSON.stringify(result.distances[0])+" metres from the route "+ JSON.stringify(result.route[0])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[1])+" metres from the route "+ JSON.stringify(result.route[1])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[2])+" metres from the route "+ JSON.stringify(result.route[2])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[3])+" metres from the route "+ JSON.stringify(result.route[3])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[4])+" metres from the route "+ JSON.stringify(result.route[4])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[5])+" metres from the route "+ JSON.stringify(result.route[5])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[6])+" metres from the route "+ JSON.stringify(result.route[6])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[7])+" metres from the route "+ JSON.stringify(result.route[7])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[8])+" metres from the route "+ JSON.stringify(result.route[8])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[9])+" metres from the route "+ JSON.stringify(result.route[9])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[10])+" metres from the route "+ JSON.stringify(result.route[10])+ " and \n"+
+    "the settlement is "+JSON.stringify(result.distances[11])+" metres from the route "+ JSON.stringify(result.route[11])
+  );
   });
   console.log(result)
 };
+
+function function5(form) {
+  habitat1 = form.habitat1.value;
+  habitat2 = form.habitat2.value;
+  url = "habitatdistance.py?habitat1="+habitat1+"&habitat2="+habitat2;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert(JSON.stringify(result.habitat1)+"is "+JSON.stringify(result.distance)+" metres from "+JSON.stringify(result.habitat2));
+  });
+  console.log(result)
+};
+
+
+function function6(form) {
+  dragonroute = form.dragonroute.value;
+  url = "migrationRouteIntersect.py?dragonroute="+dragonroute;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert("These routes intersect with the "+JSON.stringify(result.intersectingRoutes));
+  });
+  console.log(result)
+};
+
+function function7(form) {
+  dragonroute2 = form.dragonroute2.value;
+  url = "routeHabitatIntersect.py?dragonroute2="+dragonroute2;
+  var result = $.getJSON(url, function() {
+  });
+  result.always(function(result){
+    alert("The route "+JSON.stringify(result.route)+" intersects with the habitat(s) "+JSON.stringify(result.HabitatName));
+  });
+  console.log(result)
+};
+
+function dragonInfo(form) {
+    dragona = form.dragona.value
+    url = "dragoninfo.py?dragona="+dragona;
+    //send information and receive it back
+    var result=$.getJSON(url, function() {
+    });
+    //when the JSON is ready format it into an alert and put below the form
+    result.always(function(result) {
+      alert("The route number is "+JSON.stringify(result.route)+" and the dragon name is "+ JSON.stringify(result.dragon)+" and the habitat region is "+JSON.stringify(result.region));
+    });
+    console.log(result)
+};
+
+function function8(form) {
+  newID = form.newID.value;
+  newX = form.newX.value;
+  newY = form.newY.value;
+  console.log(newID, newX, newY)
+  url = "new2.py?newID="+newID+"&newX="+newX+"&newY="+newY;
+  console.log(url)
+  var result = $.get(url, function() {
+       console.log(url)
+     });
+  console.log("dude")
+  alert("Nice! Thanks for telling us your dragon sighting! Put your location into the Dragon Danger form to find out what you might have seen!")
+};
+
 
 </script>
 

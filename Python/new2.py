@@ -11,10 +11,21 @@ def add_dragon(newX, newY, newID):
    
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
-    query = "INSERT INTO S1676540.NEWDRAGON VALUES (" + str(newID) + ", SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE(" +newX + "," + newY +", NULL), NULL, NULL))"
-    c.execute(query)
-   
+    
+    try:
+        query = "INSERT INTO s1676540.NEWDRAGON VALUES (" + str(newID) + ", SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE(" +newX + "," + newY +", NULL), NULL, NULL))"
+        #query = "SELECT * FROM S1676540.NEWDRAGON"
+        print(query)
+        c.execute(query)
+        conn.commit()
+    except:
+        print('whoops')
+    #conn.commit()
+    c.execute("SELECT * FROM NEWDRAGON")
+    for row in c:
+        print(str(row[0]))
     conn.close()
+    return "hi"  
 
 
 if __name__ == '__main__':
@@ -30,8 +41,10 @@ if __name__ == '__main__':
          newY=form['newY'].value
      if "newID"in form:
          newID =form['newID'].value
-     #newX = '1'
-     #newY = '1'
-     #newID = '1'
+     #newX = '2'
+     #newY = '2'
+     #newID = '2'
      testvar = add_dragon(newX, newY, newID)
+     #print(testvar)
+     
 

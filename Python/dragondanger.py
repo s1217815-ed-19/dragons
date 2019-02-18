@@ -12,13 +12,15 @@ def dragonDanger(xcoord,ycoord):
    
     conn = cx_Oracle.connect(dsn="geosgen", user ="s1676540", password=pwd)
     c = conn.cursor()
-    query = "SELECT A.REGION_ID, A.NAME FROM S1234874.REGION A WHERE SDO_CONTAINS(A.SHAPE, SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE("+xcoord+","+ycoord+", NULL), NULL, NULL)) = 'TRUE'"
+    query = "SELECT A.REGION_ID, A.NAME, B.NAME FROM S1234874.REGION A, S1217815.DRAGONS B WHERE B.REGION_SUMMER_ID = A.REGION_ID AND SDO_CONTAINS(A.SHAPE, SDO_GEOMETRY(2001, 8307, SDO_POINT_TYPE("+xcoord+","+ycoord+", NULL), NULL, NULL)) = 'TRUE'"
     c.execute(query)
     html = {}
+    dragon = []
     for row in c:
         #Create a dictionary to store information
         html["region"]= row[1]
-        
+        dragon.append(row[2])
+    html["dragon"] = dragon
     conn.close()
     return html
 

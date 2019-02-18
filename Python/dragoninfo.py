@@ -35,9 +35,9 @@ if __name__ == '__main__':
      print("\n")
 
      #if the form is filled out, get the number, call the function, turn result into a JSON and send back
-     if "dragon" in form:
-         dragon=form['dragon'].value
-     #dragon = 'Wyvern'
-     testvar =  info_dragon(dragon)
+     if "dragona" in form:
+         dragona=form['dragona'].value
+     #dragona = 'Hungarian_Horntail'
+     testvar =  info_dragon(dragona)
      jsonfield = json.dumps(testvar, indent=1)
      print(jsonfield)

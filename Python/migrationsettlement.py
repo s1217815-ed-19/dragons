@@ -37,8 +37,8 @@ if __name__ == '__main__':
      print("\n")
 
       #if the form is filled out, get the number, call the function, turn result into a JSON and send back
-     if "settlement" in form:
-         settlement =form['settlement'].value
+     if "setlementmigration" in form:
+         settlement =form['setlementmigration'].value
      #settlement = 'Budapest'
      testvar = migrationSettlement(settlement)
      jsonfield = json.dumps(testvar, indent=1)
